@@ -8,9 +8,18 @@
 
 <h1>Overview of all the colors</h1>
 
-<p>
-    Je vroeg om deze pagina om <span th:text="${requestTime}"></span>.
-</p>
+<table>
+    <th>
+        <td>light</td>
+        <td>hue</td>
+        <td>shade</td>
+    </th>
+    <tr th:each="color : ${colors}">
+        <td th:text="${color.light}"></td>
+        <td th:text="${color.hue}"></td>
+        <td th:text="${color.shade}"></td>
+    </tr>
+</table>
 
 </body>
 </html>
