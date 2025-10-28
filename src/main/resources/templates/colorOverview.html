@@ -9,18 +9,26 @@
 <h1>Overview of all the colors</h1>
 
 <table>
+
+
     <tr>
-        <td colspan="3">Color's light-hue-shade range in HSL values</td>
+        <td colspan="4">Color's light-hue-shade range in HSL values</td>
     </tr>
     <tr>
         <td>light</td>
         <td>hue</td>
         <td>shade</td>
+        <td>gradient</td>
     </tr>
     <tr th:each="color : ${colors}">
         <td th:text="${color.light}"></td>
         <td th:text="${color.hue}"></td>
         <td th:text="${color.shade}"></td>
+        <td th:style="'width:120px; background: linear-gradient(to right, hsl('
+        + ${color.light} + ') 0%, hsl('
+        + ${color.hue} + ') 50%, hsl('
+        + ${color.shade} + ') 100%);'">
+        </td>
     </tr>
 </table>
 
