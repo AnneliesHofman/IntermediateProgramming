@@ -1,6 +1,7 @@
 package nl.miwnn.ch17.annelies.imppractice.controller;
 
 import nl.miwnn.ch17.annelies.imppractice.model.Color;
+import nl.miwnn.ch17.annelies.imppractice.repositories.ColorRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,15 +16,16 @@ import java.util.ArrayList;
 @Controller
 public class ColorController {
 
+    private final ColorRepository colorRepository;
+
+    public ColorController(ColorRepository colorRepository) {
+        this.colorRepository = colorRepository;
+    }
+
     @GetMapping("/colors")
-    private static String showColorOverview(Model datamodel) {
+    private String showColorOverview(Model datamodel) {
 
-        ArrayList<Color> colors = new ArrayList<>();
-
-        colors.add(new Color("142, 28%, 54%", "161, 59%, 27%", "159, 100%, 5%"));
-        colors.add(new Color("72, 52%, 75%", "83, 28%, 59%", "124, 72%, 16%"));
-
-        datamodel.addAttribute("colors", colors);
+        datamodel.addAttribute("colors", colorRepository.findAll());
 
         return "colorOverview";
     }
