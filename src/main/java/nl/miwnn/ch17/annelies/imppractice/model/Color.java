@@ -3,6 +3,9 @@ package nl.miwnn.ch17.annelies.imppractice.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 /**
  * @author Annelies Hofman
@@ -18,6 +21,13 @@ public class Color {
     String light;
     String hue;
     String shade;
+
+    @OneToMany(mappedBy = "color")
+    private List<PaintCan> paintCans;
+
+    public int getNumberOfPaintCans() {
+        return paintCans.size();
+    }
 
     public Long getColorId() {
         return colorId;

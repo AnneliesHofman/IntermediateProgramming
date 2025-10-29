@@ -62,7 +62,7 @@ public class ColorController {
         Optional<Color> optionalColor = colorRepository.findById(colorId);
 
         if (optionalColor.isPresent()) {
-            datamodel.addAttribute("formColor", optionalColor);
+            datamodel.addAttribute("formColor", optionalColor.get());
             return "colorForm";
         }
         return "redirect:/color/all";

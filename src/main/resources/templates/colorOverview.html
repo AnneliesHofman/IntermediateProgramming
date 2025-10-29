@@ -12,12 +12,18 @@
     <tr>
         <td colspan="4">Color's light-hue-shade range in HSL values</td>
         <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>light</td>
         <td>hue</td>
         <td>shade</td>
         <td>gradient</td>
+        <td>paint cans in store</td>
+        <td></td>
+        <td></td>
         <td></td>
     </tr>
 
@@ -25,11 +31,13 @@
         <td th:text="${color.light}"></td>
         <td th:text="${color.hue}"></td>
         <td th:text="${color.shade}"></td>
-        <td th:style="'width:120px; background: linear-gradient(to right, hsl('
+        <td th:style="'width:80px; background: linear-gradient(to right, hsl('
         + ${color.light} + ') 0%, hsl('
         + ${color.hue} + ') 50%, hsl('
         + ${color.shade} + ') 100%);'">
         </td>
+        <td>number: <span th:text="${color.numberOfPaintCans}"></span></td>
+        <td><a th:href="@{/paintcan/new/{colorId}(colorId = ${color.colorId})}">buy</a></td>
         <td><a th:href="@{/color/edit/{colorId}(colorId = ${color.colorId})}">edit</a></td>
         <td><a th:href="@{/color/delete/{colorId}(colorId = ${color.colorId})}">delete</a></td>
     </tr>
