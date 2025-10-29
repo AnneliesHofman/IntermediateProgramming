@@ -1,6 +1,7 @@
 package nl.miwnn.ch17.annelies.imppractice.controller;
 
 import nl.miwnn.ch17.annelies.imppractice.model.Color;
+import nl.miwnn.ch17.annelies.imppractice.repositories.ColorGroupRepository;
 import nl.miwnn.ch17.annelies.imppractice.repositories.ColorRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,15 +22,16 @@ import java.util.Optional;
 @Controller
 public class ColorController {
 
+    private final ColorGroupRepository colorGroupRepository;
     private final ColorRepository colorRepository;
 
-    public ColorController(ColorRepository colorRepository) {
+    public ColorController(ColorGroupRepository colorGroupRepository, ColorRepository colorRepository) {
+        this.colorGroupRepository = colorGroupRepository;
         this.colorRepository = colorRepository;
     }
 
     @GetMapping({"/color/all", "/"})
     private String showColorOverview(Model datamodel) {
-
         datamodel.addAttribute("colors", colorRepository.findAll());
 
         return "colorOverview";
@@ -37,9 +39,17 @@ public class ColorController {
 
     @GetMapping("/color/add")
     public String showColorForm(Model datamodel) {
-        datamodel.addAttribute("formColor", new Color());
+        return showColorForm(datamodel, new Color());
+    }
 
-        return "colorForm";
+    @GetMapping("/color/edit/{colorId}")
+    public String showEditColorForm(@PathVariable("colorId") Long colorId, Model datamodel) {
+        Optional<Color> optionalColor = colorRepository.findById(colorId);
+
+        if (optionalColor.isPresent()) {
+            return showColorForm(datamodel, optionalColor.get());
+        }
+        return "redirect:/color/all";
     }
 
     @PostMapping("/color/save")
@@ -57,14 +67,9 @@ public class ColorController {
         return "redirect:/color/all";
     }
 
-    @GetMapping("/color/edit/{colorId}")
-    public String showEditColorForm(@PathVariable("colorId") Long colorId, Model datamodel) {
-        Optional<Color> optionalColor = colorRepository.findById(colorId);
-
-        if (optionalColor.isPresent()) {
-            datamodel.addAttribute("formColor", optionalColor.get());
-            return "colorForm";
-        }
-        return "redirect:/color/all";
+    private String showColorForm(Model datamodel, Color color) {
+        datamodel.addAttribute("formColor", color);
+        datamodel.addAttribute("allColorGroups", colorGroupRepository.findAll());
+        return "colorForm";
     }
 }

@@ -10,10 +10,18 @@
 
 <form th:action="@{/color/save}" method="post" th:object="${formColor}">
     <input type="hidden" th:field="*{colorId}">
-    light: <input type="text" th:field="*{light}" />
-    hue: <input type="text" th:field="*{hue}" />
-    shade: <input type="text" th:field="*{shade}" />
-    <input type="submit" value="Save color" />
+    light: <input type="text" th:field="*{light}">
+    hue: <input type="text" th:field="*{hue}">
+    shade: <input type="text" th:field="*{shade}">
+
+    Color group:
+    <select th:field="*{colorGroups}" multiple>
+        <option th:each="colorGroup : ${allColorGroups}"
+            th:text="${colorGroup.colorGroupName}"
+            th:value="${colorGroup.colorGroupId}">
+        </option>
+    </select>
+    <input type="submit" value="Save color">
 </form>
 
 </body>

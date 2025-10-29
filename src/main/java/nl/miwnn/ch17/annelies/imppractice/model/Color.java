@@ -1,11 +1,9 @@
 package nl.miwnn.ch17.annelies.imppractice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Annelies Hofman
@@ -21,6 +19,10 @@ public class Color {
     String light;
     String hue;
     String shade;
+
+    @ManyToMany
+    private Set<ColorGroup> colorGroups;
+
 
     @OneToMany(mappedBy = "color")
     private List<PaintCan> paintCans;
@@ -59,5 +61,21 @@ public class Color {
 
     public void setShade(String shade) {
         this.shade = shade;
+    }
+
+    public Set<ColorGroup> getColorGroups() {
+        return colorGroups;
+    }
+
+    public void setColorGroups(Set<ColorGroup> colorGroups) {
+        this.colorGroups = colorGroups;
+    }
+
+    public List<PaintCan> getPaintCans() {
+        return paintCans;
+    }
+
+    public void setPaintCans(List<PaintCan> paintCans) {
+        this.paintCans = paintCans;
     }
 }
