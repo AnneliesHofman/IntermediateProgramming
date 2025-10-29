@@ -9,17 +9,18 @@
 <h1>Overview of all the colors</h1>
 
 <table>
-
-
     <tr>
         <td colspan="4">Color's light-hue-shade range in HSL values</td>
+        <td></td>
     </tr>
     <tr>
         <td>light</td>
         <td>hue</td>
         <td>shade</td>
         <td>gradient</td>
+        <td></td>
     </tr>
+
     <tr th:each="color : ${colors}">
         <td th:text="${color.light}"></td>
         <td th:text="${color.hue}"></td>
@@ -29,6 +30,7 @@
         + ${color.hue} + ') 50%, hsl('
         + ${color.shade} + ') 100%);'">
         </td>
+        <td><a th:href="@{/color/delete/{colorId}(colorId = ${color.colorId})}">delete</a></td>
     </tr>
 </table>
 

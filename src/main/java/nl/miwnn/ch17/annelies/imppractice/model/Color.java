@@ -13,13 +13,13 @@ import jakarta.persistence.Id;
 public class Color {
 
     @Id @GeneratedValue
-    Integer colorId;
+    Long colorId;
 
     String light;
     String hue;
     String shade;
 
-    public Integer getColorId() {
+    public Long getColorId() {
         return colorId;
     }
 
@@ -35,7 +35,7 @@ public class Color {
         return shade;
     }
 
-    public void setColorId(Integer colorId) {
+    public void setColorId(Long colorId) {
         this.colorId = colorId;
     }
 
