@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Overview of all the color groups</title>
+</head>
+<body>
+
+<h1>Overview of all the color groups</h1>
+
+<table>
+    <thead>
+         <tr>
+             <td>Name</td>
+             <td></td>
+         </tr>
+    </thead>
+
+    <tr th:each="colorGroup : ${allColorGroups}">
+        <td th:text="${colorGroup.getColorGroupName()}"></td>
+        <td><a th:href="@{/colorgroup/delete/{colorGroupId}(colorGroupId = ${colorGroup.colorGroupId})}">delete</a></td>
+    </tr>
+</table>
+
+<form th:action="@{/colorgroup/save}" method="post" th:object="${formColorGroup}">
+    Name: <input type="text" th:field="*{colorGroupName}"> <input type="submit" value="Add color group">
+</form>
+
+</body>
+</html>
