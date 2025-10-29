@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add new color</title>
+</head>
+<body>
+
+<h1>Add a new color</h1>
+
+<form th:action="@{/color/save}" method="post" th:object="${formColor}">
+    light: <input type="text" th:field="*{light}" />
+    hue: <input type="text" th:field="*{hue}" />
+    shade: <input type="text" th:field="*{shade}" />
+    <input type="submit" value="Save color" />
+</form>
+
+</body>
+</html>
