@@ -30,6 +30,7 @@
         + ${color.hue} + ') 50%, hsl('
         + ${color.shade} + ') 100%);'">
         </td>
+        <td><a th:href="@{/color/edit/{colorId}(colorId = ${color.colorId})}">edit</a></td>
         <td><a th:href="@{/color/delete/{colorId}(colorId = ${color.colorId})}">delete</a></td>
     </tr>
 </table>

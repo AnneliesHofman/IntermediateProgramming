@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * @author Annelies Hofman
@@ -53,6 +54,17 @@ public class ColorController {
     @GetMapping("/color/delete/{colorId}")
     public String deleteColor(@PathVariable("colorId") Long colorId) {
         colorRepository.deleteById(colorId);
+        return "redirect:/color/all";
+    }
+
+    @GetMapping("/color/edit/{colorId}")
+    public String showEditColorForm(@PathVariable("colorId") Long colorId, Model datamodel) {
+        Optional<Color> optionalColor = colorRepository.findById(colorId);
+
+        if (optionalColor.isPresent()) {
+            datamodel.addAttribute("formColor", optionalColor);
+            return "colorForm";
+        }
         return "redirect:/color/all";
     }
 }

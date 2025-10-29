@@ -9,6 +9,7 @@
 <h1>Add a new color</h1>
 
 <form th:action="@{/color/save}" method="post" th:object="${formColor}">
+    <input type="hidden" th:field="*{colorId}">
     light: <input type="text" th:field="*{light}" />
     hue: <input type="text" th:field="*{hue}" />
     shade: <input type="text" th:field="*{shade}" />
