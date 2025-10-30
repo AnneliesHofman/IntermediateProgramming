@@ -20,6 +20,9 @@ public class Color {
     String hue;
     String shade;
 
+    //@Column(unique = true)
+    String colorName;
+
     @ManyToMany
     private Set<ColorGroup> colorGroups;
 
@@ -27,12 +30,20 @@ public class Color {
     @OneToMany(mappedBy = "color")
     private List<PaintCan> paintCans;
 
+
+
     public int getNumberOfPaintCans() {
         return paintCans.size();
     }
 
+
+    // getters
     public Long getColorId() {
         return colorId;
+    }
+
+    public String getColorName() {
+        return colorName;
     }
 
     public String getHue() {
@@ -47,8 +58,23 @@ public class Color {
         return shade;
     }
 
+    public List<PaintCan> getPaintCans() {
+        return paintCans;
+    }
+
+    public Set<ColorGroup> getColorGroups() {
+        return colorGroups;
+    }
+
+
+
+    // setters
     public void setColorId(Long colorId) {
         this.colorId = colorId;
+    }
+
+    public void setColorName(String colorName) {
+        this.colorName = colorName;
     }
 
     public void setHue(String hue) {
@@ -63,16 +89,8 @@ public class Color {
         this.shade = shade;
     }
 
-    public Set<ColorGroup> getColorGroups() {
-        return colorGroups;
-    }
-
     public void setColorGroups(Set<ColorGroup> colorGroups) {
         this.colorGroups = colorGroups;
-    }
-
-    public List<PaintCan> getPaintCans() {
-        return paintCans;
     }
 
     public void setPaintCans(List<PaintCan> paintCans) {

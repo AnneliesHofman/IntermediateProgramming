@@ -8,21 +8,40 @@
 
 <h1>Add a new color</h1>
 
-<form th:action="@{/color/save}" method="post" th:object="${formColor}">
-    <input type="hidden" th:field="*{colorId}">
-    light: <input type="text" th:field="*{light}">
-    hue: <input type="text" th:field="*{hue}">
-    shade: <input type="text" th:field="*{shade}">
+<div th:style="|width:100%; height:30px;
+background: linear-gradient(to right, hsl(${formColor.light}) 0%, hsl(${formColor.hue}) 50%, hsl(${formColor.shade}) 100%);|">
+</div>
 
-    Color group:
-    <select th:field="*{colorGroups}" multiple>
-        <option th:each="colorGroup : ${allColorGroups}"
-            th:text="${colorGroup.colorGroupName}"
-            th:value="${colorGroup.colorGroupId}">
-        </option>
-    </select>
-    <input type="submit" value="Save color">
-</form>
+<table>
+    <tr>
+        <td th:style="'width:100px; background: linear-gradient(hsl('
+        + ${formColor.light} + ') 0%, hsl('
+        + ${formColor.hue} + ') 50%, hsl('
+        + ${formColor.shade} + ') 100%);'">
+        </td>
 
+        <td>
+            <form th:action="@{/color/save}" method="post" th:object="${formColor}">
+                <input type="hidden" th:field="*{colorId}">
+                light: <input type="text" th:field="*{light}">
+                hue: <input type="text" th:field="*{hue}">
+                shade: <input type="text" th:field="*{shade}">
+                name: <input type="text" th:field="*{colorName}">
+
+                Color group:
+                <select th:field="*{colorGroups}" multiple>
+                    <option th:each="colorGroup : ${allColorGroups}"
+                            th:text="${colorGroup.colorGroupName}"
+                            th:value="${colorGroup.colorGroupId}">
+                    </option>
+                </select>
+                <input type="submit" value="Save color">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <td><a th:href="@{/color/delete/{colorId}(colorId = ${formColor.colorId})}">delete color</a></td>
+    </tr>
+</table>
 </body>
 </html>
