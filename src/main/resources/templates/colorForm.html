@@ -23,9 +23,9 @@ background: linear-gradient(to right, hsl(${formColor.light}) 0%, hsl(${formColo
         <td>
             <form th:action="@{/color/save}" method="post" th:object="${formColor}">
                 <input type="hidden" th:field="*{colorId}">
-                light: <input type="text" th:field="*{light}">
-                hue: <input type="text" th:field="*{hue}">
-                shade: <input type="text" th:field="*{shade}">
+                light: <input type="text" th:field="*{light}"><br>
+                hue: <input type="text" th:field="*{hue}"><br>
+                shade: <input type="text" th:field="*{shade}"><br>
                 name: <input type="text" th:field="*{colorName}">
 
                 Color group:
@@ -40,6 +40,7 @@ background: linear-gradient(to right, hsl(${formColor.light}) 0%, hsl(${formColo
         </td>
     </tr>
     <tr>
+        <td><a th:href="@{/color/all}">back to overview</a></td>
         <td><a th:href="@{/color/delete/{colorId}(colorId = ${formColor.colorId})}">delete color</a></td>
     </tr>
 </table>

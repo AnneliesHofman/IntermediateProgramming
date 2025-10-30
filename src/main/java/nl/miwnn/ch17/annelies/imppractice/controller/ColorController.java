@@ -58,7 +58,7 @@ public class ColorController {
             colorRepository.save(color);
         }
 
-        return "redirect:/color/all";
+        return "colorForm";
     }
 
     @GetMapping("/color/delete/{colorId}")
