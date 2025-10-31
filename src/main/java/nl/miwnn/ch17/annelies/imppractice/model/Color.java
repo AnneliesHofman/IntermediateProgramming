@@ -32,6 +32,15 @@ public class Color {
     @OneToMany(mappedBy = "color")
     private List<Object> objects;
 
+    public Color(String light, String hue, String shade) {
+        this.light = light;
+        this.hue = hue;
+        this.shade = shade;
+    }
+
+    public Color () {
+    }
+
     // methodes
     public int getHSLHue(String hsl) {
         return Integer.parseInt(hsl.substring(0, hsl.indexOf(",")));

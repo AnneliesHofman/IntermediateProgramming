@@ -36,25 +36,4 @@ public class ObjectController {
 
         return "objectOverview";
     }
-
-    // is deze code alleen voor de koop functie van boek? Heb ik deze wel nodig?
-//    @GetMapping("/new/{colorId}")
-//    private String createNewObject(@PathVariable("colorId") Long colorId) {
-//        Optional<Color> optionalColor = colorRepository.findById(colorId);
-//
-//        if (optionalColor.isPresent()) {
-//            Object object = new Object(optionalColor.get());
-//            objectRepository.save(object);
-//        }
-//
-//        return "redirect:/color/all";
-//    }
-//
-
-//    @PostMapping("/save")
-//    public String saveOrUpdateObject(@ModelAttribute("formObject") Object object) {
-//        objectRepository.save(object);
-//        return "redirect:/object/all";
-//    }
-
 }

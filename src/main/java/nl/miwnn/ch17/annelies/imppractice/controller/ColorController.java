@@ -24,13 +24,6 @@ import java.util.Optional;
 @Controller
 public class ColorController {
 
-    public static void main(String[] args) {
-        Color kleurtje = new Color();
-        kleurtje.setLight("142, 28%, 54%");
-        System.out.println(kleurtje.getHSLHue(kleurtje.getLight()));
-        System.out.println(kleurtje.getHSLSaturation(kleurtje.getLight()));
-        System.out.println(kleurtje.getHSLLightness(kleurtje.getLight()));
-    }
     private final ColorGroupRepository colorGroupRepository;
     private final ColorRepository colorRepository;
 
@@ -81,5 +74,4 @@ public class ColorController {
         datamodel.addAttribute("allColorGroups", colorGroupRepository.findAll());
         return "colorForm";
     }
-
 }

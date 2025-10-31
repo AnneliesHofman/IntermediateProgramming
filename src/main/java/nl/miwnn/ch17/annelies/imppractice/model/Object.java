@@ -7,7 +7,7 @@ import jakarta.persistence.ManyToOne;
 
 /**
  * @author Annelies Hofman
- * TODO
+ * An object is a piece of furniture in the catalogue
  */
 
 @Entity
