@@ -33,14 +33,17 @@ public class InitializeController {
     @EventListener
     private void seed(ContextRefreshedEvent ignoredEvent) {
         if (colorRepository.count() == 0) {
-            initializeColorDB();
-        }
-        if (objectRepository.count() == 0) {
-            initializeObjectDB();
+            initializeDB();
         }
     }
 
-    private void initializeColorDB() {
+    private void initializeDB() {
+        Color defaultColor = new Color();
+        defaultColor.setHue("308, 82%, 78%");
+        defaultColor.setLight("304, 88%, 90%");
+        defaultColor.setShade("330, 96%, 27%");
+        colorRepository.save(defaultColor);
+
         File colorFile = new File("src/main/resources/static/colors/Paint.txt");
 
         ArrayList<Color> colors = new ArrayList<>();
@@ -59,44 +62,53 @@ public class InitializeController {
         }
 
         colorRepository.saveAll(colors);
-    }
 
-    private void initializeObjectDB() {
         Object snakePlant = makeObject("Snake Plant",
                 "/images/plnt_pl-SnakePlant-1-light-0.png",
                 "/images/plnt_pl-SnakePlant-1-hue-0.png",
-                "/images/plnt_pl-SnakePlant-1-shade-0.png");
-        snakePlant.setStaticImage("/images/plnt_pl-SnakePlant-2-static-0.png");
+                "/images/plnt_pl-SnakePlant-1-shade-0.png",
+                defaultColor,
+                "/images/plnt_pl-SnakePlant-2-static-0.png");
 
         Object cornerSofa = makeObject("Sofa Corner",
                 "/images/seat_md-SimpleModularCorner-1-light-0.png",
                 "/images/seat_md-SimpleModularCorner-1-hue-0.png",
-                "/images/seat_md-SimpleModularCorner-1-shade-0.png");
+                "/images/seat_md-SimpleModularCorner-1-shade-0.png",
+                defaultColor,
+                null);
 
         Object tallCabinet = makeObject("Tall Cabinet",
                 "/images/csg_cb-TallChestOfDrawers-1-light-0.png",
                 "/images/csg_cb-TallChestOfDrawers-1-hue-0.png",
-                "/images/csg_cb-TallChestOfDrawers-1-shade-0.png");
+                "/images/csg_cb-TallChestOfDrawers-1-shade-0.png",
+                defaultColor,
+                null);
 
         Object rhombusTable = makeObject("Rhombus Table",
                 "/images/csg_stb-RoundedRhombusCoffeeTable-1-light-120.png",
                 "/images/csg_stb-RoundedRhombusCoffeeTable-1-hue-120.png",
-                "/images/csg_stb-RoundedRhombusCoffeeTable-1-shade-120.png");
+                "/images/csg_stb-RoundedRhombusCoffeeTable-1-shade-120.png",
+                defaultColor,
+                null);
 
         Object cookieJar = makeObject("Cookie Jar",
                 "/images/acc_fd-CookieJar-1-light-0.png",
                 "/images/acc_fd-CookieJar-1-hue-0.png",
-                "/images/acc_fd-CookieJar-1-shade-0.png");
-        cookieJar.setStaticImage("/images/acc_fd-CookieJar-2-static-0.png");
+                "/images/acc_fd-CookieJar-1-shade-0.png",
+                defaultColor,
+                "/images/acc_fd-CookieJar-2-static-0.png");
     }
 
-    private Object makeObject(String name, String light, String hue, String shade) {
+    private Object makeObject(String name, String light, String hue, String shade, Color color, String staticImage) {
         Object object = new Object();
 
         object.setObjectName(name);
         object.setLightImage(light);
         object.setHueImage(hue);
         object.setShadeImage(shade);
+        object.setStaticImage(staticImage);
+
+        object.setColor(color);
 
         objectRepository.save(object);
 
