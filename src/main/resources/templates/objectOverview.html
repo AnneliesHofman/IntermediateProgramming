@@ -3,16 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Overview of all the objects</title>
+    <style>
+        .object-stack {
+            position: relative;
+        }
+        .object-stack img {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+
 </head>
 <body th:style="'background: #F9F6E8'">
 
     <div th:each="object : ${objects}">
-        <div>
-            <div th:style="|width:50px; height:50px; background:hsl(${object.color.getHue()})|"></div>
-            <p th:text="${object.color.getHue()}"></p>
 
-            <div th:style="|width:100px; height:100px; background:hsl(${object.color.getHue()}); mask-image:url(${object.hueImage}); mix-blend-mode: multiply;|"></div>
+        <div th:style="|width:50px; height:50px; background:hsl(${object.color.getHue()})|"></div>
+        <p th:text="${object.color.getHue()}"></p>
 
+        <div th:class="object-stack">
+            <div th:style="|width:100px; height:100px; background:hsl(${object.color.getHue()}); mask-image:url(${object.hueImage}); mix-blend-mode: multiply; object-fit: none;|"></div>
+            <div th:style="|width:100px; height:100px; background:hsl(${object.color.getShade()}); mask-image:url(${object.shadeImage}); mix-blend-mode: multiply; object-fit: none;|"></div>
+            <div th:style="|width:100px; height:100px; background:hsl(${object.color.getLight()}); mask-image:url(${object.lightImage}); mix-blend-mode: multiply; object-fit: none;|"></div>
+            <div th:unless="${object.staticImage == null}" th:style="|width:100px; height:100px; background-image:url(${object.staticImage}); object-fit: none;|">
         </div>
     </div>
 
