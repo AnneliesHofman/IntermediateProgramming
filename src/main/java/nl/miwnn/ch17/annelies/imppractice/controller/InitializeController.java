@@ -41,7 +41,7 @@ public class InitializeController {
     }
 
     private void initializeColorDB() {
-        File colorFile = new File("static/colors/Paint.txt");
+        File colorFile = new File("src/main/resources/static/colors/Paint.txt");
 
         ArrayList<Color> colors = new ArrayList<>();
 
@@ -57,6 +57,8 @@ public class InitializeController {
             System.err.println("Bestand kon niet geopend worden.");
             System.err.println(fileNotFoundException.getMessage());
         }
+
+        colorRepository.saveAll(colors);
     }
 
     private void initializeObjectDB() {

@@ -29,7 +29,6 @@ public class Object {
 
 
 
-
     public Long getObjectId() {
         return objectId;
     }

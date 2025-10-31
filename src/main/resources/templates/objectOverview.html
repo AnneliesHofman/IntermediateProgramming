@@ -32,12 +32,12 @@
 <div th:each="object : ${objects}">
     <p th:text="${object.getObjectName()}"></p>
     <div th:class="object-stack">
-        <div th:style="|background:hsl(${object.color.getHue()}); mask-image:url(${object.hueImage});|"></div>
-        <div th:style="|background:hsl(${object.color.getShade()}); mask-image:url(${object.shadeImage});|"></div>
-        <div th:style="|background:hsl(${object.color.getLight()}); mask-image:url(${object.lightImage});|"></div>
-        <div th:unless="${object.staticImage == null}" th:style="|background-image:url(${object.staticImage});|"></div>
+        <div th:style="|background:hsl(${object.color.getHue()}); mask-image:url(${object.getHueImage});|"></div>
+<!--        <div th:style="|background:hsl(${object.color.getShade()}); mask-image:url(${object.getShadeImage});|"></div>-->
+<!--        <div th:style="|background:hsl(${object.color.getLight()}); mask-image:url(${object.getLightImage});|"></div>-->
+<!--        <div th:unless="${object.staticImage == null}" th:style="|background-image:url(${object.getStaticImage});|"></div>-->
     </div>
-    <p th:text="|color: ${object.color.getColorName()}|"></p>
+<!--    <p th:text="|color: ${object.color.getColorName()}|"></p>-->
 </div>
 </body>
 </html>
