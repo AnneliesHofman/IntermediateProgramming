@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Overview of all the objects</title>
+</head>
+<body th:style="'background: #F9F6E8'">
+
+    <div th:each="object : ${objects}">
+        <div>
+            <div th:style="|width:50px; height:50px; background:hsl(${object.color.getHue()})|"></div>
+            <p th:text="${object.color.getHue()}"></p>
+
+            <div th:style="|width:100px; height:100px; background:hsl(${object.color.getHue()}); mask-image:url(${object.hueImage}); mix-blend-mode: multiply;|"></div>
+
+        </div>
+    </div>
+
+</body>
+</html>

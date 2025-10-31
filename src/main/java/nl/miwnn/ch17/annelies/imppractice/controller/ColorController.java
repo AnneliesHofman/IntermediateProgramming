@@ -3,6 +3,7 @@ package nl.miwnn.ch17.annelies.imppractice.controller;
 import nl.miwnn.ch17.annelies.imppractice.model.Color;
 import nl.miwnn.ch17.annelies.imppractice.repositories.ColorGroupRepository;
 import nl.miwnn.ch17.annelies.imppractice.repositories.ColorRepository;
+import org.aspectj.apache.bcel.classfile.SourceFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -22,6 +24,13 @@ import java.util.Optional;
 @Controller
 public class ColorController {
 
+    public static void main(String[] args) {
+        Color kleurtje = new Color();
+        kleurtje.setLight("142, 28%, 54%");
+        System.out.println(kleurtje.getHSLHue(kleurtje.getLight()));
+        System.out.println(kleurtje.getHSLSaturation(kleurtje.getLight()));
+        System.out.println(kleurtje.getHSLLightness(kleurtje.getLight()));
+    }
     private final ColorGroupRepository colorGroupRepository;
     private final ColorRepository colorRepository;
 
@@ -30,7 +39,7 @@ public class ColorController {
         this.colorRepository = colorRepository;
     }
 
-    @GetMapping({"/color/all", "/"})
+    @GetMapping({"/color/all"})
     private String showColorOverview(Model datamodel) {
         datamodel.addAttribute("colors", colorRepository.findAll());
 
@@ -72,4 +81,5 @@ public class ColorController {
         datamodel.addAttribute("allColorGroups", colorGroupRepository.findAll());
         return "colorForm";
     }
+
 }

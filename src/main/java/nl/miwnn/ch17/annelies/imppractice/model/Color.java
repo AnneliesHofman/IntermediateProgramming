@@ -14,28 +14,40 @@ import java.util.Set;
 public class Color {
 
     @Id @GeneratedValue
-    Long colorId;
+    private Long colorId;
 
-    String light;
-    String hue;
-    String shade;
+    private String light;
+    private String hue;
+    private String shade;
 
     //@Column(unique = true)
-    String colorName;
+    private String colorName;
 
     @ManyToMany
     private Set<ColorGroup> colorGroups;
 
-
     @OneToMany(mappedBy = "color")
     private List<PaintCan> paintCans;
 
+    @OneToMany(mappedBy = "color")
+    private List<Object> objects;
 
+    // methodes
+    public int getHSLHue(String hsl) {
+        return Integer.parseInt(hsl.substring(0, hsl.indexOf(",")));
+    }
+
+    public int getHSLSaturation(String hsl) {
+        return Integer.parseInt(hsl.substring((hsl.indexOf(" ")+1), hsl.indexOf("%")));
+    }
+
+    public int getHSLLightness(String hsl) {
+        return Integer.parseInt(hsl.substring((hsl.lastIndexOf(" ")+1), hsl.lastIndexOf("%")));
+    }
 
     public int getNumberOfPaintCans() {
         return paintCans.size();
     }
-
 
     // getters
     public Long getColorId() {
@@ -62,11 +74,13 @@ public class Color {
         return paintCans;
     }
 
+    public List<Object> getObjects() {
+        return objects;
+    }
+
     public Set<ColorGroup> getColorGroups() {
         return colorGroups;
     }
-
-
 
     // setters
     public void setColorId(Long colorId) {
@@ -89,11 +103,15 @@ public class Color {
         this.shade = shade;
     }
 
-    public void setColorGroups(Set<ColorGroup> colorGroups) {
-        this.colorGroups = colorGroups;
-    }
-
     public void setPaintCans(List<PaintCan> paintCans) {
         this.paintCans = paintCans;
+    }
+
+    public void setObjects(List<Object> objects) {
+        this.objects = objects;
+    }
+
+    public void setColorGroups(Set<ColorGroup> colorGroups) {
+        this.colorGroups = colorGroups;
     }
 }
