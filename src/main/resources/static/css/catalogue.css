@@ -13,9 +13,29 @@ body {
     flex: 1; /* duwt footer naar onder */
 }
 
+.catalogue {
+    display: inline-flex;
+    flex-wrap: wrap;
+}
 
 .catalogue-slot {
+    width: 120px;
+    /*max-width: 100%;           !* nodig zodat overflow werkt *!*/
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* horizontaal centreren */
+    text-align: center;    /* tekst centreren */
+
+    white-space: nowrap;       /* houd tekst op één regel */
+    overflow: hidden;          /* verberg tekst die buiten vak valt */
+    text-overflow: ellipsis;   /* toon "..." aan het eind */
+
+}
+
+.catalogue-slot > p {
+    margin: 8px;          /* haalt standaardmarges weg */
+    line-height: 1.2;   /* optioneel: compacter maken */
 }
 
 .object-stack {
@@ -23,6 +43,7 @@ body {
     width: 100px;
     height: 100px;
 }
+
 .object-stack > div {
     position: absolute;
     top: 0;
@@ -33,7 +54,12 @@ body {
     background-size: contain;   /* behoud verhouding, past binnen div */
     background-repeat: no-repeat;
     background-position: center;
+
     mask-size: contain;         /* idem voor mask-images */
     mask-repeat: no-repeat;
     mask-position: center;
+}
+
+#editObject {
+    margin-bottom: 10px;
 }

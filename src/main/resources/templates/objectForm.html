@@ -14,7 +14,7 @@
 
         <p th:text="${formObject.getObjectName()}"></p>
 
-        <div th:class="object-stack">
+        <div th:class="object-stack" id="editObject">
             <div th:style="|background:hsl(${formObject.color.getHue()}); mask-image:url(${formObject.getHueImage});|"></div>
             <div th:style="|background:hsl(${formObject.color.getShade()}); mask-image:url(${formObject.getShadeImage});|"></div>
             <div th:style="|background:hsl(${formObject.color.getLight()}); mask-image:url(${formObject.getLightImage});|"></div>
