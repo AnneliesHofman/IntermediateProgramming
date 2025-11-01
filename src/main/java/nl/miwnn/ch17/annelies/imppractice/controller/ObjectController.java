@@ -36,4 +36,32 @@ public class ObjectController {
 
         return "objectOverview";
     }
+
+    @PostMapping("/save")
+    public String updateObject(@ModelAttribute("object") Object object, BindingResult result, Model datamodel) {
+        datamodel.addAttribute("objects", objectRepository.findAll());
+
+
+        if (!result.hasErrors()){
+            objectRepository.save(object);
+        }
+        return "objectOverview";
+    }
+
+    @GetMapping("/edit/{objectId}")
+    public String showEditObjectForm(@PathVariable("objectId") Long objectId, Model datamodel) {
+        Optional<Object> optionalObject = objectRepository.findById(objectId);
+
+        if (optionalObject.isPresent()) {
+            return showObjectForm(datamodel, optionalObject.get());
+        }
+        return "redirect:/all";
+    }
+
+    private String showObjectForm(Model datamodel, Object object) {
+        datamodel.addAttribute("formObject", object);
+        datamodel.addAttribute("colors", colorRepository.findAll());
+        return "objectForm";
+    }
+
 }

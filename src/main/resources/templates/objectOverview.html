@@ -37,7 +37,20 @@
         <div th:style="|background:hsl(${object.color.getLight()}); mask-image:url(${object.getLightImage});|"></div>
         <div th:unless="${object.staticImage == null}" th:style="|background-image:url(${object.getStaticImage});|"></div>
     </div>
-    <p th:text="|color: ${object.color.getColorName()}|"></p>
+
+    <td><a th:href="@{/object/edit/{objectId}(objectId = ${object.objectId})}">edit</a></td>
+
+<!--    <p th:text="|color: ${object.color.getColorName()}|"></p>-->
+<!--    <form th:action="@{/save}" method="post" th:object="${object}">-->
+<!--        <input type="hidden" th:field="*{objectId}">-->
+<!--        <select th:field="*{color}">-->
+<!--            <option th:each="color : ${colors}"-->
+<!--                    th:text="${color.getColorName()}"-->
+<!--                    th:value="${color.getColorId()}">-->
+<!--            </option>-->
+<!--        </select>-->
+<!--        <input type="submit" value="Change color">-->
+<!--    </form>-->
 </div>
 </body>
 </html>

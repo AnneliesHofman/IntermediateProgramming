@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change this object</title>
+    <style>
+        .object-stack {
+            position: relative;
+            width: 100px;
+            height: 100px;
+        }
+        .object-stack > div {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            background-size: contain;   /* behoud verhouding, past binnen div */
+            background-repeat: no-repeat;
+            background-position: center;
+            mask-size: contain;         /* idem voor mask-images */
+            mask-repeat: no-repeat;
+            mask-position: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Change an object</h1>
+
+<p th:text="${formObject.getObjectName()}"></p>
+<div th:class="object-stack">
+    <div th:style="|background:hsl(${formObject.color.getHue()}); mask-image:url(${formObject.getHueImage});|"></div>
+    <div th:style="|background:hsl(${formObject.color.getShade()}); mask-image:url(${formObject.getShadeImage});|"></div>
+    <div th:style="|background:hsl(${formObject.color.getLight()}); mask-image:url(${formObject.getLightImage});|"></div>
+    <div th:unless="${formObject.staticImage == null}" th:style="|background-image:url(${formObject.getStaticImage});|"></div>
+</div>
+
+<form th:action="@{/object/save}" method="post" th:object="${formObject}">
+    <input type="hidden" th:field="*{objectId}">
+    <input type="hidden" th:field="*{objectName}">
+    <input type="hidden" th:field="*{hueImage}">
+    <input type="hidden" th:field="*{lightImage}">
+    <input type="hidden" th:field="*{shadeImage}">
+    <input type="hidden" th:field="*{staticImage}">
+    <select th:field="*{color}">
+        <option th:each="color : ${colors}"
+                th:text="${color.getColorName()}"
+                th:value="${color.getColorId()}">
+        </option>
+    </select>
+    <input type="submit" value="Change color">
+</form>
+
+</body>
+</html>

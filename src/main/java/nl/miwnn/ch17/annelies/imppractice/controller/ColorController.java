@@ -55,7 +55,10 @@ public class ColorController {
     }
 
     @PostMapping("/color/save")
-    public String saveOrUpdateColor(@ModelAttribute("formColor") Color color, BindingResult result) {
+    public String saveOrUpdateColor(@ModelAttribute("formColor") Color color, BindingResult result, Model datamodel) {
+
+        datamodel.addAttribute("allColorGroups", colorGroupRepository.findAll());
+
         if (!result.hasErrors()){
             colorRepository.save(color);
         }
