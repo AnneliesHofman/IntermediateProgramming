@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Overview of all the objects</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" >
+    <link rel="stylesheet" type="text/css" href="/css/library.css" />
+
     <style>
         .object-stack {
             position: relative;
@@ -27,30 +32,20 @@
 </head>
 
 <body>
-<h1>Overview of all the objects</h1>
+    <div class="container">
+        <h1>Overview of all the objects</h1>
 
-<div th:each="object : ${objects}">
-    <p th:text="${object.getObjectName()}"></p>
-    <div th:class="object-stack">
-        <div th:style="|background:hsl(${object.color.getHue()}); mask-image:url(${object.getHueImage});|"></div>
-        <div th:style="|background:hsl(${object.color.getShade()}); mask-image:url(${object.getShadeImage});|"></div>
-        <div th:style="|background:hsl(${object.color.getLight()}); mask-image:url(${object.getLightImage});|"></div>
-        <div th:unless="${object.staticImage == null}" th:style="|background-image:url(${object.getStaticImage});|"></div>
+        <div th:each="object : ${objects}">
+            <p th:text="${object.getObjectName()}"></p>
+            <div th:class="object-stack">
+                <div th:style="|background:hsl(${object.color.getHue()}); mask-image:url(${object.getHueImage});|"></div>
+                <div th:style="|background:hsl(${object.color.getShade()}); mask-image:url(${object.getShadeImage});|"></div>
+                <div th:style="|background:hsl(${object.color.getLight()}); mask-image:url(${object.getLightImage});|"></div>
+                <div th:unless="${object.staticImage == null}" th:style="|background-image:url(${object.getStaticImage});|"></div>
+            </div>
+            <td><a th:href="@{/object/edit/{objectId}(objectId = ${object.objectId})}">edit</a></td>
+        </div>
     </div>
-
-    <td><a th:href="@{/object/edit/{objectId}(objectId = ${object.objectId})}">edit</a></td>
-
-<!--    <p th:text="|color: ${object.color.getColorName()}|"></p>-->
-<!--    <form th:action="@{/save}" method="post" th:object="${object}">-->
-<!--        <input type="hidden" th:field="*{objectId}">-->
-<!--        <select th:field="*{color}">-->
-<!--            <option th:each="color : ${colors}"-->
-<!--                    th:text="${color.getColorName()}"-->
-<!--                    th:value="${color.getColorId()}">-->
-<!--            </option>-->
-<!--        </select>-->
-<!--        <input type="submit" value="Change color">-->
-<!--    </form>-->
-</div>
 </body>
+
 </html>

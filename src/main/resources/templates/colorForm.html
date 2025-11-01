@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Add new color</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" >
+    <link rel="stylesheet" type="text/css" href="/css/library.css" />
 </head>
+
 <body>
+    <div class="container">
+        <h1>Add a new color</h1>
 
-<h1>Add a new color</h1>
+        <div th:style="|width:100%; height:30px;
+        background: linear-gradient(to right, hsl(${formColor.light}) 0%, hsl(${formColor.hue}) 50%, hsl(${formColor.shade}) 100%);|">
+        </div>
 
-<div th:style="|width:100%; height:30px;
-background: linear-gradient(to right, hsl(${formColor.light}) 0%, hsl(${formColor.hue}) 50%, hsl(${formColor.shade}) 100%);|">
-</div>
+        <table>
+            <tr>
+                <td th:style="'width:100px; background: linear-gradient(hsl('
+                + ${formColor.light} + ') 0%, hsl('
+                + ${formColor.hue} + ') 50%, hsl('
+                + ${formColor.shade} + ') 100%);'">
+                </td>
 
-<table>
-    <tr>
-        <td th:style="'width:100px; background: linear-gradient(hsl('
-        + ${formColor.light} + ') 0%, hsl('
-        + ${formColor.hue} + ') 50%, hsl('
-        + ${formColor.shade} + ') 100%);'">
-        </td>
+                <td>
+                    <form th:action="@{/color/save}" method="post" th:object="${formColor}">
+                        <input type="hidden" th:field="*{colorId}">
+                        light: <input type="text" th:field="*{light}"><br>
+                        hue: <input type="text" th:field="*{hue}"><br>
+                        shade: <input type="text" th:field="*{shade}"><br>
+                        name: <input type="text" th:field="*{colorName}">
 
-        <td>
-            <form th:action="@{/color/save}" method="post" th:object="${formColor}">
-                <input type="hidden" th:field="*{colorId}">
-                light: <input type="text" th:field="*{light}"><br>
-                hue: <input type="text" th:field="*{hue}"><br>
-                shade: <input type="text" th:field="*{shade}"><br>
-                name: <input type="text" th:field="*{colorName}">
-
-                Color group:
-                <select th:field="*{colorGroups}" multiple>
-                    <option th:each="colorGroup : ${allColorGroups}"
-                            th:text="${colorGroup.colorGroupName}"
-                            th:value="${colorGroup.colorGroupId}">
-                    </option>
-                </select>
-                <input type="submit" value="Save color">
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td><a th:href="@{/color/all}">back to overview</a></td>
-        <td><a th:href="@{/color/delete/{colorId}(colorId = ${formColor.colorId})}">delete color</a></td>
-    </tr>
-</table>
+                        Color group:
+                        <select th:field="*{colorGroups}" multiple>
+                            <option th:each="colorGroup : ${allColorGroups}"
+                                    th:text="${colorGroup.colorGroupName}"
+                                    th:value="${colorGroup.colorGroupId}">
+                            </option>
+                        </select>
+                        <input type="submit" value="Save color">
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td><a th:href="@{/color/all}">back to overview</a></td>
+                <td><a th:href="@{/color/delete/{colorId}(colorId = ${formColor.colorId})}">delete color</a></td>
+            </tr>
+        </table>
+    </div>
 </body>
+
 </html>

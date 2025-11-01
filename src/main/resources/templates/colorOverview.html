@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Overview of all the colors</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" >
+    <link rel="stylesheet" type="text/css" href="/css/library.css" />
 </head>
+
 <body>
+    <div class="container">
+        <h1>Overview of all the colors</h1>
 
-<h1>Overview of all the colors</h1>
+        <table>
+            <tr>
+                <td>hue</td>
+                <td>preview</td>
+                <td>name</td>
+            </tr>
 
-<table>
-    <tr>
-        <td>hue</td>
-        <td>preview</td>
-        <td>name</td>
-    </tr>
+            <tr th:each="color : ${colors}">
+                <td th:text="${color.hue}"></td>
+                <td th:style="'width:180px; background: linear-gradient(to right, hsl('
+                + ${color.light} + ') 0%, hsl('
+                + ${color.hue} + ') 50%, hsl('
+                + ${color.shade} + ') 100%);'">
+                </td>
+                <td th:text="${color.colorName}"></td>
+                <td><a th:href="@{/color/edit/{colorId}(colorId = ${color.colorId})}">edit</a></td>
+            </tr>
+        </table>
 
-    <tr th:each="color : ${colors}">
-        <td th:text="${color.hue}"></td>
-        <td th:style="'width:180px; background: linear-gradient(to right, hsl('
-        + ${color.light} + ') 0%, hsl('
-        + ${color.hue} + ') 50%, hsl('
-        + ${color.shade} + ') 100%);'">
-        </td>
-        <td th:text="${color.colorName}"></td>
-        <td><a th:href="@{/color/edit/{colorId}(colorId = ${color.colorId})}">edit</a></td>
-    </tr>
-</table>
-
-<a th:href="@{/color/add}">Add a color</a>
-
+        <a th:href="@{/color/add}">Add a color</a>
+    </div>
 </body>
+
 </html>
