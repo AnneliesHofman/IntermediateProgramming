@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>Overview of all the color groups</title>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" >
-    <link rel="stylesheet" type="text/css" href="/css/library.css" />
 </head>
 
 <body>
+    <div th:replace="~{fragments/general :: navbar}"></div>
+
     <div class="container">
         <h1>Overview of all the color groups</h1>
 
@@ -31,6 +29,9 @@
             Name: <input type="text" th:field="*{colorGroupName}"> <input type="submit" value="Add color group">
         </form>
     </div>
+
+    <div th:replace="~{fragments/general :: footer}"></div>
+    <div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>
 
 </html>

@@ -1,0 +1,39 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* minstens hele viewporthoogte */
+}
+
+.container {
+    flex: 1; /* duwt footer naar onder */
+}
+
+
+.catalogue-slot {
+
+}
+
+.object-stack {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+.object-stack > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background-size: contain;   /* behoud verhouding, past binnen div */
+    background-repeat: no-repeat;
+    background-position: center;
+    mask-size: contain;         /* idem voor mask-images */
+    mask-repeat: no-repeat;
+    mask-position: center;
+}

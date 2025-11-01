@@ -1,51 +1,32 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 
-<head>
-    <meta charset="UTF-8">
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
     <title>Overview of all the objects</title>
-
-    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" >
-    <link rel="stylesheet" type="text/css" href="/css/library.css" />
-
-    <style>
-        .object-stack {
-            position: relative;
-            width: 100px;
-            height: 100px;
-        }
-        .object-stack > div {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-
-            background-size: contain;   /* behoud verhouding, past binnen div */
-            background-repeat: no-repeat;
-            background-position: center;
-            mask-size: contain;         /* idem voor mask-images */
-            mask-repeat: no-repeat;
-            mask-position: center;
-        }
-    </style>
 </head>
 
 <body>
+    <div th:replace="~{fragments/general :: navbar}"></div>
+
     <div class="container">
         <h1>Overview of all the objects</h1>
 
-        <div th:each="object : ${objects}">
-            <p th:text="${object.getObjectName()}"></p>
-            <div th:class="object-stack">
-                <div th:style="|background:hsl(${object.color.getHue()}); mask-image:url(${object.getHueImage});|"></div>
-                <div th:style="|background:hsl(${object.color.getShade()}); mask-image:url(${object.getShadeImage});|"></div>
-                <div th:style="|background:hsl(${object.color.getLight()}); mask-image:url(${object.getLightImage});|"></div>
-                <div th:unless="${object.staticImage == null}" th:style="|background-image:url(${object.getStaticImage});|"></div>
+        <div th:class="catalogue" th:each="object : ${objects}">
+            <div th:class="catalogue-slot">
+                <p th:text="${object.getObjectName()}"></p>
+                <div th:class="object-stack">
+                    <div th:style="|background:hsl(${object.color.getHue()}); mask-image:url(${object.getHueImage});|"></div>
+                    <div th:style="|background:hsl(${object.color.getShade()}); mask-image:url(${object.getShadeImage});|"></div>
+                    <div th:style="|background:hsl(${object.color.getLight()}); mask-image:url(${object.getLightImage});|"></div>
+                    <div th:unless="${object.staticImage == null}" th:style="|background-image:url(${object.getStaticImage});|"></div>
+                </div>
+                <p><a th:href="@{/object/edit/{objectId}(objectId = ${object.objectId})}">edit</a></p>
             </div>
-            <td><a th:href="@{/object/edit/{objectId}(objectId = ${object.objectId})}">edit</a></td>
         </div>
     </div>
+
+    <div th:replace="~{fragments/general :: footer}"></div>
+    <div th:replace="~{fragments/general :: bottomScripts}"></div>
 </body>
 
 </html>
