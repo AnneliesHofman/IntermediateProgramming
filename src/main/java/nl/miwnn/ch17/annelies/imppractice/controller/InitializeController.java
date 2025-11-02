@@ -1,7 +1,9 @@
 package nl.miwnn.ch17.annelies.imppractice.controller;
 
 import nl.miwnn.ch17.annelies.imppractice.model.Color;
+import nl.miwnn.ch17.annelies.imppractice.model.ColorCategory;
 import nl.miwnn.ch17.annelies.imppractice.model.Object;
+import nl.miwnn.ch17.annelies.imppractice.repositories.ColorCategoryRepository;
 import nl.miwnn.ch17.annelies.imppractice.repositories.ColorRepository;
 import nl.miwnn.ch17.annelies.imppractice.repositories.ObjectRepository;
 
@@ -24,10 +26,13 @@ public class InitializeController {
 
     private final ColorRepository colorRepository;
     private final ObjectRepository objectRepository;
+    private final ColorCategoryRepository colorCategoryRepository;
 
-    public InitializeController(ColorRepository colorRepository, ObjectRepository objectRepository) {
+
+    public InitializeController(ColorRepository colorRepository, ObjectRepository objectRepository, ColorCategoryRepository colorCategoryRepository) {
         this.colorRepository = colorRepository;
         this.objectRepository = objectRepository;
+        this.colorCategoryRepository = colorCategoryRepository;
     }
 
     @EventListener
@@ -97,6 +102,25 @@ public class InitializeController {
                 "/images/acc_fd-CookieJar-1-shade-0.png",
                 defaultColor,
                 "/images/acc_fd-CookieJar-2-static-0.png");
+
+
+        ColorCategory red = makeHueCategory("Red",345 ,15);
+        ColorCategory orange = makeHueCategory("Orange",12 ,36);
+        ColorCategory yellow = makeHueCategory("Yellow",32 ,65);
+        ColorCategory green = makeHueCategory("Green",58 ,144);
+        ColorCategory cyan = makeHueCategory("Cyan",140 ,180);
+        ColorCategory blue = makeHueCategory("Blue",174 ,250);
+        ColorCategory purple = makeHueCategory("Purple",248 ,282);
+        ColorCategory pink = makeHueCategory("Pink",278 ,348);
+        ColorCategory brown = makeTintCategory("Brown",0 ,40 ,0 ,50,0 ,80 );
+        ColorCategory white = makeTintCategory("White",0 ,361,0 ,50 ,80 ,100 );
+        ColorCategory black = makeTintCategory("Black",0 ,361,0 ,40 ,0 ,20 );
+        ColorCategory light = makeLightnessCategory("Light",55 ,85);
+        ColorCategory medium = makeLightnessCategory("Medium",35 ,75);
+        ColorCategory dark = makeLightnessCategory("Dark",0 ,40);
+        ColorCategory grey = makeSaturationCategory("Grey",0 ,25);
+        ColorCategory muted = makeSaturationCategory("Muted",20 ,50);
+        ColorCategory vibrant = makeSaturationCategory("Vibrant",45 ,100);
     }
 
     private Object makeObject(String name, String light, String hue, String shade, Color color, String staticImage) {
@@ -113,5 +137,61 @@ public class InitializeController {
         objectRepository.save(object);
 
         return object;
+    }
+
+    private ColorCategory makeHueCategory(String name, int minHue, int maxHue) {
+
+        ColorCategory colorCategory = new ColorCategory();
+
+        colorCategory.setColCatName(name);
+        colorCategory.setHueMinValue(minHue);
+        colorCategory.setHueMaxValue(maxHue);
+
+        colorCategoryRepository.save(colorCategory);
+
+        return colorCategory;
+    }
+
+    private ColorCategory makeLightnessCategory(String name, int minLight, int maxLight) {
+
+        ColorCategory colorCategory = new ColorCategory();
+
+        colorCategory.setColCatName(name);
+        colorCategory.setLightnessMinValue(minLight);
+        colorCategory.setLightnessMaxValue(maxLight);
+
+        colorCategoryRepository.save(colorCategory);
+
+        return colorCategory;
+    }
+
+    private ColorCategory makeSaturationCategory(String name, int minSat, int maxSat) {
+
+        ColorCategory colorCategory = new ColorCategory();
+
+        colorCategory.setColCatName(name);
+        colorCategory.setSaturationMinValue(minSat);
+        colorCategory.setSaturationMaxValue(maxSat);
+
+        colorCategoryRepository.save(colorCategory);
+
+        return colorCategory;
+    }
+
+    private ColorCategory makeTintCategory(String name, int minHue, int maxHue, int minSat, int maxSat, int minLight, int maxLight) {
+
+        ColorCategory colorCategory = new ColorCategory();
+
+        colorCategory.setColCatName(name);
+        colorCategory.setHueMinValue(minHue);
+        colorCategory.setHueMaxValue(maxHue);
+        colorCategory.setSaturationMinValue(minSat);
+        colorCategory.setSaturationMaxValue(maxSat);
+        colorCategory.setLightnessMinValue(minLight);
+        colorCategory.setLightnessMaxValue(maxLight);
+
+        colorCategoryRepository.save(colorCategory);
+
+        return colorCategory;
     }
 }

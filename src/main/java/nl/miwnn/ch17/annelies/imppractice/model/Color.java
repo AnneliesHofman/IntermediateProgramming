@@ -26,6 +26,8 @@ public class Color {
     @ManyToMany
     private Set<ColorGroup> colorGroups;
 
+    private Set<ColorCategory> colorCategories;
+
     @OneToMany(mappedBy = "color")
     private List<PaintCan> paintCans;
 
