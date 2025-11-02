@@ -7,10 +7,7 @@ import org.aspectj.apache.bcel.classfile.SourceFile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLOutput;
 import java.util.ArrayList;
@@ -55,15 +52,23 @@ public class ColorController {
     }
 
     @PostMapping("/color/save")
-    public String saveOrUpdateColor(@ModelAttribute("formColor") Color color, BindingResult result, Model datamodel) {
+    public String saveOrUpdateColor(@ModelAttribute("formColor") Color color,
+                            BindingResult result, Model datamodel, @RequestParam String action) {
 
+        datamodel.addAttribute("colors", colorRepository.findAll());
         datamodel.addAttribute("allColorGroups", colorGroupRepository.findAll());
 
-        if (!result.hasErrors()){
-            colorRepository.save(color);
+        if ("apply".equals(action)) {
+            if (!result.hasErrors()){
+                colorRepository.save(color);
+            }
+            return "colorForm";
+        } else {
+            if (!result.hasErrors()){
+                colorRepository.save(color);
+            }
+            return "colorOverview";
         }
-
-        return "colorForm";
     }
 
     @GetMapping("/color/delete/{colorId}")
