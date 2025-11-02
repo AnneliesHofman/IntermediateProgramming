@@ -112,9 +112,9 @@ public class InitializeController {
         ColorCategory blue = makeHueCategory("Blue",174 ,250);
         ColorCategory purple = makeHueCategory("Purple",248 ,282);
         ColorCategory pink = makeHueCategory("Pink",278 ,348);
-        ColorCategory brown = makeTintCategory("Brown",0 ,40 ,0 ,50,0 ,80 );
-        ColorCategory white = makeTintCategory("White",0 ,361,0 ,50 ,80 ,100 );
-        ColorCategory black = makeTintCategory("Black",0 ,361,0 ,40 ,0 ,20 );
+        ColorCategory brown = makeColorCategory("Brown",0 ,40 ,0 ,50,0 ,80 );
+        ColorCategory white = makeColorCategory("White",0 ,361,0 ,50 ,80 ,100 );
+        ColorCategory black = makeColorCategory("Black",0 ,361,0 ,40 ,0 ,20 );
         ColorCategory light = makeLightnessCategory("Light",55 ,85);
         ColorCategory medium = makeLightnessCategory("Medium",35 ,75);
         ColorCategory dark = makeLightnessCategory("Dark",0 ,40);
@@ -178,7 +178,7 @@ public class InitializeController {
         return colorCategory;
     }
 
-    private ColorCategory makeTintCategory(String name, int minHue, int maxHue, int minSat, int maxSat, int minLight, int maxLight) {
+    private ColorCategory makeColorCategory(String name, int minHue, int maxHue, int minSat, int maxSat, int minLight, int maxLight) {
 
         ColorCategory colorCategory = new ColorCategory();
 

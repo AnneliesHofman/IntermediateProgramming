@@ -16,55 +16,48 @@ public class Color {
     @Id @GeneratedValue
     private Long colorId;
 
+    //@Column(unique = true)
+    private String colorName;
+
     private String light;
     private String hue;
     private String shade;
 
-    //@Column(unique = true)
-    private String colorName;
-
     @ManyToMany
-    private Set<ColorGroup> colorGroups;
-
     private Set<ColorCategory> colorCategories;
-
-    @OneToMany(mappedBy = "color")
-    private List<PaintCan> paintCans;
 
     @OneToMany(mappedBy = "color")
     private List<Object> objects;
 
+    @OneToMany(mappedBy = "color")
+    private List<PaintCan> paintCans;
+    @ManyToMany
+    private Set<ColorGroup> colorGroups;
+
+    // constructors
     public Color(String light, String hue, String shade) {
         this.light = light;
         this.hue = hue;
         this.shade = shade;
     }
-
     public Color () {
     }
 
     // methodes
-    public int getHSLHue(String hsl) {
-        return Integer.parseInt(hsl.substring(0, hsl.indexOf(",")));
-    }
+//    public int getHSLHue(String hsl) {
+//        return Integer.parseInt(hsl.substring(0, hsl.indexOf(",")));
+//    }
+//    public int getHSLSaturation(String hsl) {
+//        return Integer.parseInt(hsl.substring((hsl.indexOf(" ")+1), hsl.indexOf("%")));
+//    }
+//    public int getHSLLightness(String hsl) {
+//        return Integer.parseInt(hsl.substring((hsl.lastIndexOf(" ")+1), hsl.lastIndexOf("%")));
+//    }
 
-    public int getHSLSaturation(String hsl) {
-        return Integer.parseInt(hsl.substring((hsl.indexOf(" ")+1), hsl.indexOf("%")));
-    }
-
-    public int getHSLLightness(String hsl) {
-        return Integer.parseInt(hsl.substring((hsl.lastIndexOf(" ")+1), hsl.lastIndexOf("%")));
-    }
-
-    public int getNumberOfPaintCans() {
-        return paintCans.size();
-    }
-
-    // getters
+    // Getters & Setters
     public Long getColorId() {
         return colorId;
     }
-
     public String getColorName() {
         return colorName;
     }
@@ -72,28 +65,22 @@ public class Color {
     public String getHue() {
         return hue;
     }
-
     public String getLight() {
         return light;
     }
-
     public String getShade() {
         return shade;
     }
 
-    public List<PaintCan> getPaintCans() {
-        return paintCans;
+    public Set<ColorCategory> getColorCategories() {
+        return colorCategories;
     }
 
     public List<Object> getObjects() {
         return objects;
     }
 
-    public Set<ColorGroup> getColorGroups() {
-        return colorGroups;
-    }
 
-    // setters
     public void setColorId(Long colorId) {
         this.colorId = colorId;
     }
@@ -105,24 +92,34 @@ public class Color {
     public void setHue(String hue) {
         this.hue = hue;
     }
-
     public void setLight(String light) {
         this.light = light;
     }
-
     public void setShade(String shade) {
         this.shade = shade;
     }
 
-    public void setPaintCans(List<PaintCan> paintCans) {
-        this.paintCans = paintCans;
+    public void setColorCategories(Set<ColorCategory> colorCategories) {
+        this.colorCategories = colorCategories;
     }
 
     public void setObjects(List<Object> objects) {
         this.objects = objects;
     }
 
+
+
+// no longer needed
+    public List<PaintCan> getPaintCans() {
+        return paintCans;
+    }
+    public Set<ColorGroup> getColorGroups() {
+        return colorGroups;
+    }
     public void setColorGroups(Set<ColorGroup> colorGroups) {
         this.colorGroups = colorGroups;
+    }
+    public void setPaintCans(List<PaintCan> paintCans) {
+        this.paintCans = paintCans;
     }
 }
