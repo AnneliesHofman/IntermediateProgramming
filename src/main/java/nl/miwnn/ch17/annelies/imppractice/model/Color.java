@@ -23,9 +23,6 @@ public class Color {
     private String hue;
     private String shade;
 
-    @ManyToMany
-    private Set<ColorCategory> colorCategories;
-
     @OneToMany(mappedBy = "color")
     private List<Object> objects;
 
@@ -44,6 +41,7 @@ public class Color {
     }
 
     // methodes
+
 //    public int getHSLHue(String hsl) {
 //        return Integer.parseInt(hsl.substring(0, hsl.indexOf(",")));
 //    }
@@ -72,10 +70,6 @@ public class Color {
         return shade;
     }
 
-    public Set<ColorCategory> getColorCategories() {
-        return colorCategories;
-    }
-
     public List<Object> getObjects() {
         return objects;
     }
@@ -97,10 +91,6 @@ public class Color {
     }
     public void setShade(String shade) {
         this.shade = shade;
-    }
-
-    public void setColorCategories(Set<ColorCategory> colorCategories) {
-        this.colorCategories = colorCategories;
     }
 
     public void setObjects(List<Object> objects) {

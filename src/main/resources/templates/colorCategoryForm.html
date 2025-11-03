@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="~{fragments/general :: baseheader(~{:: title})}">
+    <title>Edit a color category</title>
+</head>
+
+<body>
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
+    <h1>Edit a color category</h1><br>
+
+    <p th:text="${colorcategory.getColCatName()}"></p>
+
+    <form th:action="@{/colorcategory/save}" method="post" th:object="${formColCat}">
+        <input type="hidden" th:field="*{colCatId}">
+
+        <div class="row mb-1">
+            <label for="hueMin" class="col-sm-2 col-form-label">min. Hue</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="hueMin" th:field="*{hueMinValue}">
+            </div>
+        </div>
+
+
+        <div class="row mb-1">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <button type="submit" class="btn btn-primary" name="action" value="save">Save and Return</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+</body>
+
+</html>

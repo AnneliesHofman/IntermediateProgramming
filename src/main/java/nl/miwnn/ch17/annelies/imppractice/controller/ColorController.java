@@ -29,7 +29,7 @@ public class ColorController {
         this.colorRepository = colorRepository;
     }
 
-    @GetMapping({"/color/all"})
+    @GetMapping({"/color/all", "/color", "/"})
     private String showColorOverview(Model datamodel) {
         datamodel.addAttribute("colors", colorRepository.findAll());
 
