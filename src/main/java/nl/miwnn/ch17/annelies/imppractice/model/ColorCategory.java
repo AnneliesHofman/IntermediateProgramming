@@ -15,12 +15,14 @@ import java.util.Set;
 @Entity
 public class ColorCategory {
 
+    protected static final Integer DEFAULT_MIN_VALUE = 0;
+    protected static final Integer DEFAULT_HUE_MAX_VALUE = 360;
+    protected static final Integer DEFAULT_SAT_LT_MAX_VALUE = 100;
+    protected static final String DEFAULT_NAME = null;
+
     @Id @GeneratedValue
     private Long colCatId;
-
     private String colCatName;
-    @ManyToMany
-    private Set<Color> catColors;
 
     private int hueMinValue;
     private int hueMaxValue;
@@ -29,53 +31,40 @@ public class ColorCategory {
     private int lightnessMinValue;
     private int lightnessMaxValue;
 
-    // methodes
-//    // first attempt, add colors to category
-//    public void calcColorsInHueCat(ColorCategory colCat, Color color) {
-//        if (calcHueFit(colCat, color)) {
-//            colCat.getCatColors().add(color);
-//        }
-//    }
-//
-//
-//    // methods to compare color's HSL to category's min and max values
-//    public boolean calcHueFit(ColorCategory colCat, Color color) {
-//        int colHue = separateHue(color);
-//        return ((colHue > colCat.hueMinValue) && (colHue < colCat.hueMaxValue));
-//    }
-//    public boolean calcSatFit(ColorCategory colCat, Color color) {
-//        int colSat = separateSaturation(color);
-//        return ((colSat > colCat.saturationMinValue) && (colSat < colCat.saturationMaxValue));
-//    }
-//    public boolean calcLightFit(ColorCategory colCat, Color color) {
-//        int colLight = separateLightness(color);
-//        return ((colLight > colCat.lightnessMinValue) && (colLight < colCat.lightnessMaxValue));
-//    }
-//
-//    // methods for extracting separate Hue Saturation and Lightness values from Color
-//    // (based on color gradient's medium color (hue)
-//    public int separateHue(Color color) {
-//        return Integer.parseInt(color.getHue().substring(0,
-//                color.getHue().indexOf(",")));
-//    }
-//    public int separateSaturation(Color color) {
-//        return Integer.parseInt(color.getHue().substring((color.getHue().indexOf(" ")+1),
-//                color.getHue().indexOf("%")));
-//    }
-//    public int separateLightness(Color color) {
-//        return Integer.parseInt(color.getHue().substring((color.getHue().lastIndexOf(" ")+1),
-//                color.getHue().lastIndexOf("%")));
-//    }
+    //Relations
+    @ManyToMany
+    private Set<Color> catColors;
 
- // getters & setters
+    //Constructors
+    public ColorCategory(String colCatName,
+                         int hueMinValue, int hueMaxValue,
+                         int saturationMinValue, int saturationMaxValue,
+                         int lightnessMinValue, int lightnessMaxValue) {
+        this.colCatName = colCatName;
+        this.hueMinValue = hueMinValue;
+        this.hueMaxValue = hueMaxValue;
+        this.saturationMinValue = saturationMinValue;
+        this.saturationMaxValue = saturationMaxValue;
+        this.lightnessMinValue = lightnessMinValue;
+        this.lightnessMaxValue = lightnessMaxValue;
+    }
+
+    public ColorCategory() {
+        this.colCatName = DEFAULT_NAME;
+        this.hueMinValue = DEFAULT_MIN_VALUE;
+        this.hueMaxValue = DEFAULT_HUE_MAX_VALUE;
+        this.saturationMinValue = DEFAULT_MIN_VALUE;
+        this.saturationMaxValue = DEFAULT_SAT_LT_MAX_VALUE;
+        this.lightnessMinValue = DEFAULT_MIN_VALUE;
+        this.lightnessMaxValue = DEFAULT_SAT_LT_MAX_VALUE;
+    }
+
+    //Getters
     public Long getColCatId() {
         return colCatId;
     }
     public String getColCatName() {
         return colCatName;
-    }
-    public Set<Color> getCatColors() {
-        return catColors;
     }
 
     public int getHueMinValue() {
@@ -84,14 +73,12 @@ public class ColorCategory {
     public int getHueMaxValue() {
         return hueMaxValue;
     }
-
     public int getSaturationMinValue() {
         return saturationMinValue;
     }
     public int getSaturationMaxValue() {
         return saturationMaxValue;
     }
-
     public int getLightnessMinValue() {
         return lightnessMinValue;
     }
@@ -99,14 +86,16 @@ public class ColorCategory {
         return lightnessMaxValue;
     }
 
+    public Set<Color> getCatColors() {
+        return catColors;
+    }
+
+    //Setters
     public void setColCatId(Long colCatId) {
         this.colCatId = colCatId;
     }
     public void setColCatName(String colCatName) {
         this.colCatName = colCatName;
-    }
-    public void setCatColors(Set<Color> catColors) {
-        this.catColors = catColors;
     }
 
     public void setHueMinValue(int hueMinValue) {
@@ -115,19 +104,21 @@ public class ColorCategory {
     public void setHueMaxValue(int hueMaxValue) {
         this.hueMaxValue = hueMaxValue;
     }
-
     public void setSaturationMinValue(int saturationMinValue) {
         this.saturationMinValue = saturationMinValue;
     }
     public void setSaturationMaxValue(int saturationMaxValue) {
         this.saturationMaxValue = saturationMaxValue;
     }
-
     public void setLightnessMinValue(int lightnessMinValue) {
         this.lightnessMinValue = lightnessMinValue;
     }
     public void setLightnessMaxValue(int lightnessMaxValue) {
         this.lightnessMaxValue = lightnessMaxValue;
+    }
+
+    public void setCatColors(Set<Color> catColors) {
+        this.catColors = catColors;
     }
 }
 

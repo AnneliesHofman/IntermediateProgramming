@@ -14,22 +14,20 @@ public class ColorGroup {
 
     @Id @GeneratedValue
     private Long colorGroupId;
-
     private String colorGroupName;
 
-
+    //Getters
     public Long getColorGroupId() {
         return colorGroupId;
     }
-
-    public void setColorGroupId(Long colorGroupId) {
-        this.colorGroupId = colorGroupId;
-    }
-
     public String getColorGroupName() {
         return colorGroupName;
     }
 
+    //Setters
+    public void setColorGroupId(Long colorGroupId) {
+        this.colorGroupId = colorGroupId;
+    }
     public void setColorGroupName(String colorGroupName) {
         this.colorGroupName = colorGroupName;
     }

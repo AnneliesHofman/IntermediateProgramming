@@ -15,7 +15,6 @@ public class Object {
 
     @Id @GeneratedValue
     private Long objectId;
-
     //@Column(unique = true)
     private String objectName;
 
@@ -24,61 +23,54 @@ public class Object {
     private String shadeImage;
     private String staticImage;
 
+    //Relations
     @ManyToOne
     private Color color;
 
-
-
+    //Getters
     public Long getObjectId() {
         return objectId;
     }
-
-    public void setObjectId(Long objectId) {
-        this.objectId = objectId;
-    }
-
     public String getObjectName() {
         return objectName;
-    }
-
-    public void setObjectName(String objectName) {
-        this.objectName = objectName;
     }
 
     public String getLightImage() {
         return lightImage;
     }
-
-    public void setLightImage(String lightImage) {
-        this.lightImage = lightImage;
-    }
-
     public String getHueImage() {
         return hueImage;
     }
-
-    public void setHueImage(String hueImage) {
-        this.hueImage = hueImage;
-    }
-
     public String getShadeImage() {
         return shadeImage;
     }
-
-    public void setShadeImage(String shadeImage) {
-        this.shadeImage = shadeImage;
-    }
-
     public String getStaticImage() {
         return staticImage;
     }
 
-    public void setStaticImage(String staticImage) {
-        this.staticImage = staticImage;
-    }
-
     public Color getColor() {
         return color;
+    }
+
+    //Setters
+    public void setObjectId(Long objectId) {
+        this.objectId = objectId;
+    }
+    public void setObjectName(String objectName) {
+        this.objectName = objectName;
+    }
+
+    public void setLightImage(String lightImage) {
+        this.lightImage = lightImage;
+    }
+    public void setHueImage(String hueImage) {
+        this.hueImage = hueImage;
+    }
+    public void setShadeImage(String shadeImage) {
+        this.shadeImage = shadeImage;
+    }
+    public void setStaticImage(String staticImage) {
+        this.staticImage = staticImage;
     }
 
     public void setColor(Color color) {

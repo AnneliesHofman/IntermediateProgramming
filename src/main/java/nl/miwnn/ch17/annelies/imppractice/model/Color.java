@@ -15,7 +15,6 @@ public class Color {
 
     @Id @GeneratedValue
     private Long colorId;
-
     //@Column(unique = true)
     private String colorName;
 
@@ -23,15 +22,15 @@ public class Color {
     private String hue;
     private String shade;
 
+    //Relations
     @OneToMany(mappedBy = "color")
     private List<Object> objects;
-
-    @OneToMany(mappedBy = "color")
-    private List<PaintCan> paintCans;
     @ManyToMany
     private Set<ColorGroup> colorGroups;
+    @OneToMany(mappedBy = "color")
+    private List<PaintCan> paintCans;
 
-    // constructors
+    //Constructors
     public Color(String light, String hue, String shade) {
         this.light = light;
         this.hue = hue;
@@ -40,19 +39,9 @@ public class Color {
     public Color () {
     }
 
-    // methodes
+    //Methodes
 
-//    public int getHSLHue(String hsl) {
-//        return Integer.parseInt(hsl.substring(0, hsl.indexOf(",")));
-//    }
-//    public int getHSLSaturation(String hsl) {
-//        return Integer.parseInt(hsl.substring((hsl.indexOf(" ")+1), hsl.indexOf("%")));
-//    }
-//    public int getHSLLightness(String hsl) {
-//        return Integer.parseInt(hsl.substring((hsl.lastIndexOf(" ")+1), hsl.lastIndexOf("%")));
-//    }
-
-    // Getters & Setters
+    //Getters
     public Long getColorId() {
         return colorId;
     }
@@ -73,12 +62,14 @@ public class Color {
     public List<Object> getObjects() {
         return objects;
     }
+    public Set<ColorGroup> getColorGroups() {
+        return colorGroups;
+    }
 
-
+    //Setters
     public void setColorId(Long colorId) {
         this.colorId = colorId;
     }
-
     public void setColorName(String colorName) {
         this.colorName = colorName;
     }
@@ -96,18 +87,13 @@ public class Color {
     public void setObjects(List<Object> objects) {
         this.objects = objects;
     }
-
-
-
-// no longer needed
-    public List<PaintCan> getPaintCans() {
-        return paintCans;
-    }
-    public Set<ColorGroup> getColorGroups() {
-        return colorGroups;
-    }
     public void setColorGroups(Set<ColorGroup> colorGroups) {
         this.colorGroups = colorGroups;
+    }
+
+    //PaintCan getter & setter
+    public List<PaintCan> getPaintCans() {
+        return paintCans;
     }
     public void setPaintCans(List<PaintCan> paintCans) {
         this.paintCans = paintCans;

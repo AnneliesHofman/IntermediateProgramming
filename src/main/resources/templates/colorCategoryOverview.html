@@ -17,39 +17,36 @@
             <td th:style="'width: 10%'">min. hue</td><td th:style="'width: 10%'">max. hue</td>
             <td th:style="'width: 10%'">min. sat.</td><td th:style="'width: 10%'">max. sat.</td>
             <td th:style="'width: 10%'">min. light</td><td th:style="'width: 10%'">max. light</td>
-            <td></td>
+            <td th:style="'width: 10%'"></td><td th:style="'width: 10%'"></td>
         </tr>
         </thead>
     </table>
-        <div th:each="colorCategory : ${allColorCategories}">
-            <table style="width:100%">
-                <tr>
-            <td th:text="${colorCategory.getColCatName()}" th:style="'width: 10%'"></td>
-            <td th:text="|${colorCategory.getHueMinValue()}|" th:style="'width: 10%'"></td>
-            <td th:text="|${colorCategory.getHueMaxValue()}|" th:style="'width: 10%'"></td>
-            <td th:text="|${colorCategory.getSaturationMinValue()}|" th:style="'width: 10%'"></td>
-            <td th:text="|${colorCategory.getSaturationMaxValue()}|" th:style="'width: 10%'"></td>
-            <td th:text="|${colorCategory.getLightnessMinValue()}|" th:style="'width: 10%'"></td>
-            <td th:text="|${colorCategory.getLightnessMaxValue()}|" th:style="'width: 10%'"></td>
-<!--            <td><a th:href="@{/colorcategory/edit/{colCatId}(colCatId = ${colorCategory.colCatId})}">edit</a></td>-->
-            <td th:style="'width: 10%'"> <a th:href="@{/colorcategory/calculate/{colCatId}(colCatId = ${colorCategory.colCatId})}">Calculate colors</a></td>
-            <td th:style="'width: 10%'"> <a th:href="@{/colorcategory/edit/{colCatId}(colCatId = ${colorCategory.colCatId})}">edit</a></td>
+
+    <div th:each="colorCategory : ${allColorCategories}">
+        <table style="width:100%">
+            <tr>
+                <td th:text="${colorCategory.getColCatName()}" th:style="'width: 10%'"></td>
+                <td th:text="|${colorCategory.getHueMinValue()}|" th:style="'width: 10%'"></td>
+                <td th:text="|${colorCategory.getHueMaxValue()}|" th:style="'width: 10%'"></td>
+                <td th:text="|${colorCategory.getSaturationMinValue()}|" th:style="'width: 10%'"></td>
+                <td th:text="|${colorCategory.getSaturationMaxValue()}|" th:style="'width: 10%'"></td>
+                <td th:text="|${colorCategory.getLightnessMinValue()}|" th:style="'width: 10%'"></td>
+                <td th:text="|${colorCategory.getLightnessMaxValue()}|" th:style="'width: 10%'"></td>
+    <!--            <td><a th:href="@{/colorcategory/edit/{colCatId}(colCatId = ${colorCategory.colCatId})}">edit</a></td>-->
+                <td th:style="'width: 10%'"> <a th:href="@{/colorcategory/calculate/{colCatId}(colCatId = ${colorCategory.colCatId})}">Calculate colors</a></td>
+                <td th:style="'width: 10%'"> <a th:href="@{/colorcategory/edit/{colCatId}(colCatId = ${colorCategory.colCatId})}">edit</a></td>
             </tr>
-            </table>
-            <div>
-                <div th:class="catalogue" th:each="color : ${colorCategory.catColors}">
-                    <div th:class="catalogue-slot" th:style="'width:80px; height:80px; background: linear-gradient(to right, hsl('
+        </table>
+        <div>
+            <div th:class="catalogue" th:each="color : ${colorCategory.catColors}">
+                <div th:class="catalogue-slot" th:style="'width:80px; height:80px; background: linear-gradient(to right, hsl('
                 + ${color.light} + ') 0%, hsl('
                 + ${color.hue} + ') 50%, hsl('
                 + ${color.shade} + ') 100%);'">
                     </div>
-                </div>
             </div>
-
         </div>
-    </table>
-
-
+    </div>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

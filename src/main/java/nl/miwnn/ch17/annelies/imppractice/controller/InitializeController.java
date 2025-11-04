@@ -50,7 +50,6 @@ public class InitializeController {
         colorRepository.save(defaultColor);
 
         File colorFile = new File("src/main/resources/static/colors/Paint.txt");
-
         ArrayList<Color> colors = new ArrayList<>();
 
         try (Scanner input = new Scanner(colorFile)) {
@@ -65,7 +64,6 @@ public class InitializeController {
             System.err.println("Bestand kon niet geopend worden.");
             System.err.println(fileNotFoundException.getMessage());
         }
-
         colorRepository.saveAll(colors);
 
         Object snakePlant = makeObject("Snake Plant",
@@ -103,24 +101,23 @@ public class InitializeController {
                 defaultColor,
                 "/images/acc_fd-CookieJar-2-static-0.png");
 
-
-        ColorCategory red = makeHueCategory("Red",345 ,15);
-        ColorCategory orange = makeHueCategory("Orange",12 ,36);
-        ColorCategory yellow = makeHueCategory("Yellow",32 ,65);
-        ColorCategory green = makeHueCategory("Green",58 ,144);
-        ColorCategory cyan = makeHueCategory("Cyan",140 ,180);
-        ColorCategory blue = makeHueCategory("Blue",174 ,250);
-        ColorCategory purple = makeHueCategory("Purple",248 ,282);
-        ColorCategory pink = makeHueCategory("Pink",278 ,348);
-        ColorCategory brown = makeColorCategory("Brown",0 ,40 ,0 ,50,0 ,80 );
-        ColorCategory white = makeColorCategory("White",0 ,361,0 ,50 ,80 ,100 );
-        ColorCategory black = makeColorCategory("Black",0 ,361,0 ,40 ,0 ,20 );
-        ColorCategory light = makeLightnessCategory("Light",55 ,85);
-        ColorCategory medium = makeLightnessCategory("Medium",35 ,75);
-        ColorCategory dark = makeLightnessCategory("Dark",0 ,40);
-        ColorCategory grey = makeSaturationCategory("Grey",0 ,25);
-        ColorCategory muted = makeSaturationCategory("Muted",20 ,50);
-        ColorCategory vibrant = makeSaturationCategory("Vibrant",45 ,100);
+        ColorCategory red = makeColorCategory("Red", 345 ,15, 0, 100, 0, 100);
+        ColorCategory orange = makeColorCategory("Orange", 12 ,36, 0, 100, 0, 100);
+        ColorCategory yellow = makeColorCategory("Yellow", 32 ,65, 0, 100, 0, 100);
+        ColorCategory green = makeColorCategory("Green", 58 ,144, 0, 100, 0, 100);
+        ColorCategory cyan = makeColorCategory("Cyan", 140 ,180, 0, 100, 0, 100);
+        ColorCategory blue = makeColorCategory("Blue", 174 ,250, 0, 100, 0, 100);
+        ColorCategory purple = makeColorCategory("Purple", 248 ,282, 0, 100, 0, 100);
+        ColorCategory pink = makeColorCategory("Pink", 278 ,348, 0, 100, 0, 100);
+        ColorCategory brown = makeColorCategory("Brown", 0 ,40 ,0 ,50,0 ,80 );
+        ColorCategory white = makeColorCategory("White", 0 ,360,0 ,50 ,80 ,100 );
+        ColorCategory black = makeColorCategory("Black", 0 ,360,0 ,40 ,0 ,20 );
+        ColorCategory light = makeColorCategory("Light", 0, 360, 0, 100, 55 ,85);
+        ColorCategory medium = makeColorCategory("Medium", 0, 360, 0, 100, 35 ,75);
+        ColorCategory dark = makeColorCategory("Dark", 0, 360, 0, 100, 0 ,40);
+        ColorCategory grey = makeColorCategory("Grey", 0, 360, 0 ,25, 0, 100);
+        ColorCategory muted = makeColorCategory("Muted", 0, 360, 20 ,50, 0, 100);
+        ColorCategory vibrant = makeColorCategory("Vibrant", 0, 360 ,45 ,100, 0, 100);
     }
 
     private Object makeObject(String name, String light, String hue, String shade, Color color, String staticImage) {
@@ -139,47 +136,7 @@ public class InitializeController {
         return object;
     }
 
-    private ColorCategory makeHueCategory(String name, int minHue, int maxHue) {
-
-        ColorCategory colorCategory = new ColorCategory();
-
-        colorCategory.setColCatName(name);
-        colorCategory.setHueMinValue(minHue);
-        colorCategory.setHueMaxValue(maxHue);
-
-        colorCategoryRepository.save(colorCategory);
-
-        return colorCategory;
-    }
-
-    private ColorCategory makeLightnessCategory(String name, int minLight, int maxLight) {
-
-        ColorCategory colorCategory = new ColorCategory();
-
-        colorCategory.setColCatName(name);
-        colorCategory.setLightnessMinValue(minLight);
-        colorCategory.setLightnessMaxValue(maxLight);
-
-        colorCategoryRepository.save(colorCategory);
-
-        return colorCategory;
-    }
-
-    private ColorCategory makeSaturationCategory(String name, int minSat, int maxSat) {
-
-        ColorCategory colorCategory = new ColorCategory();
-
-        colorCategory.setColCatName(name);
-        colorCategory.setSaturationMinValue(minSat);
-        colorCategory.setSaturationMaxValue(maxSat);
-
-        colorCategoryRepository.save(colorCategory);
-
-        return colorCategory;
-    }
-
     private ColorCategory makeColorCategory(String name, int minHue, int maxHue, int minSat, int maxSat, int minLight, int maxLight) {
-
         ColorCategory colorCategory = new ColorCategory();
 
         colorCategory.setColCatName(name);

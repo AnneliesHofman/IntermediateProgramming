@@ -4,6 +4,7 @@ import nl.miwnn.ch17.annelies.imppractice.model.Color;
 import nl.miwnn.ch17.annelies.imppractice.model.ColorCategory;
 import nl.miwnn.ch17.annelies.imppractice.repositories.ColorCategoryRepository;
 import nl.miwnn.ch17.annelies.imppractice.repositories.ColorRepository;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,6 +28,7 @@ public class ColorCategoryController {
         this.colorRepository = colorRepository;
     }
 
+    //overview
     @GetMapping("/all")
     public String showColorGroupOverview(Model datamodel) {
         datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
@@ -34,46 +36,6 @@ public class ColorCategoryController {
 
         return "colorCategoryOverview";
     }
-
-    private String showColCatForm(Model datamodel, ColorCategory colorCategory) {
-        datamodel.addAttribute("formColCat", colorCategory);
-        datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
-
-        return "colCatForm";
-    }
-
-    @GetMapping("/edit/{colCatId}")
-    public String showEditColCatForm(@PathVariable("colCatId") Long colCatId, Model datamodel) {
-        Optional<ColorCategory> optionalColCat = colorCategoryRepository.findById(colCatId);
-
-        if (optionalColCat.isPresent()) {
-            datamodel.addAttribute("formColCat", optionalColCat);
-            return "colCatForm";
-        }
-        return "redirect:/colorcategory/all";
-    }
-
-    @PostMapping("/save")
-    public String updateColorCategory(@ModelAttribute("formColCat") ColorCategory colorCategory, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/colorcategory/all";
-        }
-        colorCategoryRepository.save(colorCategory);
-        return "redirect:colorcategory/all";
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
     @GetMapping("/calculate/{colCatId}")
     public String showCalculatedColors(@PathVariable("colCatId") Long colCatId, Model datamodel) {
         datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
@@ -82,23 +44,16 @@ public class ColorCategoryController {
         Optional<ColorCategory> colCat = colorCategoryRepository.findById(colCatId);
 
         for (Color color : colorRepository.findAll()) {
-            calcColorsInHueCat(colCat.orElse(null), color);
-//            if (calcHueFit(colCat, color)) {
-//                colCat.getCatColors().add(color);
-//            }
+            calcColorsInCat(colCat.orElse(null), color);
         }
-//        colorCategoryRepository.save(colCat);
-
         return "colorCategoryOverview";
     }
-
-    // first attempt, add colors to category
-    public void calcColorsInHueCat(ColorCategory colCat, Color color) {
-        if (calcHueFit(colCat, color)) {
+    // add colors to category
+    public void calcColorsInCat(ColorCategory colCat, Color color) {
+        if (calcHueFit(colCat, color) && calcSatFit(colCat, color) && calcLightFit(colCat, color)) {
             colCat.getCatColors().add(color);
         }
     }
-
     // methods to compare color's HSL to category's min and max values
     public boolean calcHueFit(ColorCategory colCat, Color color) {
         int colHue = separateHue(color);
@@ -112,7 +67,6 @@ public class ColorCategoryController {
         int colLight = separateLightness(color);
         return ((colLight > colCat.getLightnessMinValue()) && (colLight < colCat.getLightnessMaxValue()));
     }
-
     // methods for extracting separate Hue Saturation and Lightness values from Color
     // (based on color gradient's medium color (hue)
     public int separateHue(Color color) {
@@ -126,5 +80,32 @@ public class ColorCategoryController {
     public int separateLightness(Color color) {
         return Integer.parseInt(color.getHue().substring((color.getHue().lastIndexOf(" ")+1),
                 color.getHue().lastIndexOf("%")));
+    }
+
+    //form
+    private String showColCatForm(Model datamodel, ColorCategory colorCategory) {
+        datamodel.addAttribute("formColCat", colorCategory);
+        datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
+
+        return "colCatForm";
+    }
+    @GetMapping("/edit/{colCatId}")
+    public String showEditColCatForm(@PathVariable("colCatId") Long colCatId, Model datamodel) {
+        Optional<ColorCategory> optionalColCat = colorCategoryRepository.findById(colCatId);
+
+        if (optionalColCat.isPresent()) {
+            datamodel.addAttribute("formColCat", optionalColCat);
+            return "colCatForm";
+        } else {
+            return "redirect:/colorcategory/all";
+        }
+    }
+    @PostMapping("/save")
+    public String updateColorCategory(@ModelAttribute("formColCat") ColorCategory colorCategory, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/colorcategory/all";
+        }
+        colorCategoryRepository.save(colorCategory);
+        return "redirect:colorcategory/all";
     }
 }

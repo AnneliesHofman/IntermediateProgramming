@@ -2,6 +2,7 @@ package nl.miwnn.ch17.annelies.imppractice.controller;
 
 import nl.miwnn.ch17.annelies.imppractice.model.ColorGroup;
 import nl.miwnn.ch17.annelies.imppractice.repositories.ColorGroupRepository;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/colorgroup")
 public class ColorGroupController {
+
     private final ColorGroupRepository colorGroupRepository;
 
     public ColorGroupController(ColorGroupRepository colorGroupRepository) {
@@ -34,7 +36,6 @@ public class ColorGroupController {
         if (result.hasErrors()) {
             return "redirect:/colorgroup/all";
         }
-
         colorGroupRepository.save(colorGroup);
         return "redirect:/colorgroup/all";
     }
