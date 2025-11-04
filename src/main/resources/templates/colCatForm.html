@@ -11,10 +11,11 @@
 <div class="container">
     <h1>Edit a color category</h1><br>
 
-    <h1 th:text="${formColCat.getColCatName()}"></h1>
+    <h2 th:text="${formColCat.getColCatName()}"></h2>
 
     <form th:action="@{/colorcategory/save}" method="post" th:object="${formColCat}">
         <input type="hidden" th:field="*{colCatId}">
+        <input type="hidden" th:field="*{colCatName}">
 
         <div class="row mb-1">
 
@@ -32,7 +33,7 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-2">
 
             <div class="col-sm-4">
                 <label for="hueMax" class="col-form-label">max. Hue</label>
@@ -55,6 +56,16 @@
             </div>
         </div>
     </form>
+
+    <br>
+    <h3>Colors in this category:</h3>
+        <div th:class="catalogue" th:each="color : ${formColCat.catColors}">
+            <div th:class="catalogue-slot" th:style="'width:60px; height:40px; background: linear-gradient(to right, hsl('
+                + ${color.light} + ') 0%, hsl('
+                + ${color.hue} + ') 50%, hsl('
+                + ${color.shade} + ') 100%);'">
+            </div>
+        </div>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

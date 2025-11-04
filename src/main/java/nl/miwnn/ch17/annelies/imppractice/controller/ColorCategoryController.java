@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,28 +33,43 @@ public class ColorCategoryController {
     @GetMapping("/all")
     public String showColorGroupOverview(Model datamodel) {
         datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
-        //datamodel.addAttribute("formColorCategory", new ColorCategory());
+//        datamodel.addAttribute("colors", colorRepository.findAll());
+        List<ColorCategory> colorCategories = colorCategoryRepository.findAll();
+
+        for (ColorCategory colorCategory : colorCategories) {
+            calcColorsInColCat(colorCategory);
+        }
 
         return "colorCategoryOverview";
     }
-    @GetMapping("/calculate/{colCatId}")
-    public String showCalculatedColors(@PathVariable("colCatId") Long colCatId, Model datamodel) {
-        datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
-        datamodel.addAttribute("colors", colorRepository.findAll());
 
-        Optional<ColorCategory> colCat = colorCategoryRepository.findById(colCatId);
+//    @GetMapping("/calculate/{colCatId}")
+//    public String showCalculatedColors(@PathVariable("colCatId") Long colCatId, Model datamodel) {
+//        datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
+//        datamodel.addAttribute("colors", colorRepository.findAll());
+//
+//        Optional<ColorCategory> colCat = colorCategoryRepository.findById(colCatId);
+//
+//        for (Color color : colorRepository.findAll()) {
+//            if (calcHueFit(colCat.orElse(null), color) &&
+//                    calcSatFit(colCat.orElse(null), color) &&
+//                    calcLightFit(colCat.orElse(null), color)) {
+//                colCat.orElse(null).getCatColors().add(color);
+//            }
+//        }
+//        return "colorCategoryOverview";
+//    }
 
+    public void calcColorsInColCat(ColorCategory colCat) {
+        colCat.getCatColors().clear();
         for (Color color : colorRepository.findAll()) {
-            calcColorsInCat(colCat.orElse(null), color);
+            if (calcHueFit(colCat, color) && calcSatFit(colCat, color) && calcLightFit(colCat, color)) {
+                colCat.getCatColors().add(color);
+            }
         }
-        return "colorCategoryOverview";
+        colorCategoryRepository.save(colCat);
     }
-    // add colors to category
-    public void calcColorsInCat(ColorCategory colCat, Color color) {
-        if (calcHueFit(colCat, color) && calcSatFit(colCat, color) && calcLightFit(colCat, color)) {
-            colCat.getCatColors().add(color);
-        }
-    }
+
     // methods to compare color's HSL to category's min and max values
     public boolean calcHueFit(ColorCategory colCat, Color color) {
         int colHue = separateHue(color);
@@ -87,6 +103,8 @@ public class ColorCategoryController {
         datamodel.addAttribute("formColCat", colorCategory);
         datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
 
+        calcColorsInColCat(colorCategory);
+
         return "colCatForm";
     }
     @GetMapping("/edit/{colCatId}")
@@ -105,10 +123,10 @@ public class ColorCategoryController {
         if (!result.hasErrors()) {
             colorCategoryRepository.save(colorCategory);
         }
-        if (action.equals("apply")) {
-            return "colorForm";
+        if ("apply".equals(action)) {
+            return "redirect:/colorcategory/edit/" + colorCategory.getColCatId();
         } else {
-            return "redirect:/color/all";
+            return "redirect:/colorcategory/all";
         }
     }
 }
