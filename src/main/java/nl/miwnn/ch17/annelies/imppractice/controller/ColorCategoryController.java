@@ -21,6 +21,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/colorcategory")
 public class ColorCategoryController {
+    protected static final int HSL_HUE_RANGE = 360;
     private final ColorCategoryRepository colorCategoryRepository;
     private final ColorRepository colorRepository;
 
@@ -73,6 +74,11 @@ public class ColorCategoryController {
     // methods to compare color's HSL to category's min and max values
     public boolean calcHueFit(ColorCategory colCat, Color color) {
         int colHue = separateHue(color);
+
+        if (colHue > (colCat.getHueMinValue() + HSL_HUE_RANGE)) {
+            colHue -= HSL_HUE_RANGE;
+        }
+
         return colHue > colCat.getHueMinValue() && colHue < colCat.getHueMaxValue();
     }
     public boolean calcSatFit(ColorCategory colCat, Color color) {

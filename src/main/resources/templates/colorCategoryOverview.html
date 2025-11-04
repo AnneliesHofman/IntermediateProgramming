@@ -14,8 +14,11 @@
     <div th:each="colorCategory : ${allColorCategories}">
         <table style="width:100%">
             <tr>
-                <td th:style="'width: 20%'"><h2 th:text="${colorCategory.getColCatName()}"></h2></td>
-                <td> <a th:href="@{/colorcategory/edit/{colCatId}(colCatId = ${colorCategory.colCatId})}">edit</a></td>
+                <td><h2 th:text="${colorCategory.getColCatName()}"></h2></td>
+<!--                <td> <a th:href="@{/colorcategory/edit/{colCatId}(colCatId = ${colorCategory.colCatId})}">edit</a></td>-->
+                <td><a class="btn btn-outline-primary btn-sm float-end" th:href="@{/colorcategory/edit/{colCatId}(colCatId = ${colorCategory.colCatId})}">edit</a></td>
+<!--                <button type="button" class="btn btn-outline-primary btn-sm">edit</button>-->
+
             </tr>
         </table>
         <div>
