@@ -90,22 +90,25 @@ public class ColorCategoryController {
         return "colCatForm";
     }
     @GetMapping("/edit/{colCatId}")
-    public String showEditColCatForm(@PathVariable("colCatId") Long colCatId, Model datamodel) {
+    public String editColCatForm(@PathVariable("colCatId") Long colCatId, Model datamodel) {
         Optional<ColorCategory> optionalColCat = colorCategoryRepository.findById(colCatId);
 
         if (optionalColCat.isPresent()) {
-            datamodel.addAttribute("formColCat", optionalColCat);
-            return "colCatForm";
+            return showColCatForm(datamodel, optionalColCat.get());
         } else {
             return "redirect:/colorcategory/all";
         }
     }
     @PostMapping("/save")
-    public String updateColorCategory(@ModelAttribute("formColCat") ColorCategory colorCategory, BindingResult result) {
-        if (result.hasErrors()) {
-            return "redirect:/colorcategory/all";
+    public String updateColorCategory(@ModelAttribute("formColCat") ColorCategory colorCategory,
+                                      BindingResult result, Model datamodel, @RequestParam String action) {
+        if (!result.hasErrors()) {
+            colorCategoryRepository.save(colorCategory);
         }
-        colorCategoryRepository.save(colorCategory);
-        return "redirect:colorcategory/all";
+        if (action.equals("apply")) {
+            return "colorForm";
+        } else {
+            return "redirect:/color/all";
+        }
     }
 }

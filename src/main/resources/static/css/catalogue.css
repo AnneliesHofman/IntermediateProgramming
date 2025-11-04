@@ -63,3 +63,7 @@ body {
 #editObject {
     margin-bottom: 10px;
 }
+
+.text-more-muted {
+    opacity: 0.5;
+}
