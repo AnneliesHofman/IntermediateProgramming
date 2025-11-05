@@ -101,23 +101,18 @@ public class InitializeController {
                 defaultColor,
                 "/images/acc_fd-CookieJar-2-static-0.png");
 
-        ColorCategory red = makeColorCategory("Red", 345 ,15, 0, 100, 0, 100);
-        ColorCategory orange = makeColorCategory("Orange", 12 ,36, 0, 100, 0, 100);
-        ColorCategory yellow = makeColorCategory("Yellow", 32 ,65, 0, 100, 0, 100);
-        ColorCategory green = makeColorCategory("Green", 58 ,144, 0, 100, 0, 100);
-        ColorCategory cyan = makeColorCategory("Cyan", 140 ,180, 0, 100, 0, 100);
-        ColorCategory blue = makeColorCategory("Blue", 174 ,250, 0, 100, 0, 100);
-        ColorCategory purple = makeColorCategory("Purple", 248 ,282, 0, 100, 0, 100);
-        ColorCategory pink = makeColorCategory("Pink", 278 ,348, 0, 100, 0, 100);
+        ColorCategory red = makeColorCategory("Red", 350 ,13, 0, 100, 0, 100);
+        ColorCategory orange = makeColorCategory("Orange", 14 ,32, 0, 100, 0, 100);
+        ColorCategory yellow = makeColorCategory("Yellow", 33 ,50, 0, 100, 0, 100);
+        ColorCategory green = makeColorCategory("Green", 51 ,140, 0, 100, 0, 100);
+        ColorCategory cyan = makeColorCategory("Cyan", 141 ,190, 0, 100, 0, 100);
+        ColorCategory blue = makeColorCategory("Blue", 191 ,230, 0, 100, 0, 100);
+        ColorCategory purple = makeColorCategory("Purple", 231 ,299, 0, 100, 0, 100);
+        ColorCategory pink = makeColorCategory("Pink", 300 ,349, 0, 100, 0, 100);
         ColorCategory brown = makeColorCategory("Brown", 0 ,40 ,0 ,50,0 ,80 );
-        ColorCategory white = makeColorCategory("White", 0 ,360,0 ,50 ,80 ,100 );
-        ColorCategory black = makeColorCategory("Black", 0 ,360,0 ,40 ,0 ,20 );
-        ColorCategory light = makeColorCategory("Light", 0, 360, 0, 100, 55 ,85);
-        ColorCategory medium = makeColorCategory("Medium", 0, 360, 0, 100, 35 ,75);
-        ColorCategory dark = makeColorCategory("Dark", 0, 360, 0, 100, 0 ,40);
-        ColorCategory grey = makeColorCategory("Grey", 0, 360, 0 ,25, 0, 100);
-        ColorCategory muted = makeColorCategory("Muted", 0, 360, 20 ,50, 0, 100);
-        ColorCategory vibrant = makeColorCategory("Vibrant", 0, 360 ,45 ,100, 0, 100);
+        ColorCategory white = makeColorCategory("White", 0 ,360,0 ,40 ,80 ,100 );
+        ColorCategory grey = makeColorCategory("Grey", 0, 360, 0 ,15, 0, 100);
+        ColorCategory black = makeColorCategory("Black", 0 ,360,0 ,50 ,0 ,30 );
     }
 
     private Object makeObject(String name, String light, String hue, String shade, Color color, String staticImage) {

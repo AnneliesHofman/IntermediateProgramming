@@ -34,7 +34,6 @@ public class ColorCategoryController {
     @GetMapping("/all")
     public String showColorGroupOverview(Model datamodel) {
         datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
-//        datamodel.addAttribute("colors", colorRepository.findAll());
         List<ColorCategory> colorCategories = colorCategoryRepository.findAll();
 
         for (ColorCategory colorCategory : colorCategories) {
@@ -43,23 +42,6 @@ public class ColorCategoryController {
 
         return "colorCategoryOverview";
     }
-
-//    @GetMapping("/calculate/{colCatId}")
-//    public String showCalculatedColors(@PathVariable("colCatId") Long colCatId, Model datamodel) {
-//        datamodel.addAttribute("allColorCategories", colorCategoryRepository.findAll());
-//        datamodel.addAttribute("colors", colorRepository.findAll());
-//
-//        Optional<ColorCategory> colCat = colorCategoryRepository.findById(colCatId);
-//
-//        for (Color color : colorRepository.findAll()) {
-//            if (calcHueFit(colCat.orElse(null), color) &&
-//                    calcSatFit(colCat.orElse(null), color) &&
-//                    calcLightFit(colCat.orElse(null), color)) {
-//                colCat.orElse(null).getCatColors().add(color);
-//            }
-//        }
-//        return "colorCategoryOverview";
-//    }
 
     public void calcColorsInColCat(ColorCategory colCat) {
         colCat.getCatColors().clear();
@@ -75,10 +57,12 @@ public class ColorCategoryController {
     public boolean calcHueFit(ColorCategory colCat, Color color) {
         int colHue = separateHue(color);
 
-        if (colHue > (colCat.getHueMinValue() + HSL_HUE_RANGE)) {
-            colHue -= HSL_HUE_RANGE;
+        if (colCat.getHueMinValue() > colCat.getHueMaxValue()) {
+            if (colHue > colCat.getHueMinValue()) {
+                colHue -= 360;
+            }
+            return colHue > (colCat.getHueMinValue() - 360) && colHue < colCat.getHueMaxValue();
         }
-
         return colHue > colCat.getHueMinValue() && colHue < colCat.getHueMaxValue();
     }
     public boolean calcSatFit(ColorCategory colCat, Color color) {
